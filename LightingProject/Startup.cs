@@ -22,6 +22,9 @@ namespace LightingProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            // add path_local to maps db
+            services.AddSingleton(new MbTilesReader("C:/Users/RiiVa/source/repos/LightingProject/LightingProject/tdb.mbtiles"));
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

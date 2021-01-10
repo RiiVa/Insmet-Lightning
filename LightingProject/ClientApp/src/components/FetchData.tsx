@@ -18,7 +18,7 @@ type WeatherForecastProps =
   & RouteComponentProps<{ startDateIndex: string }>; // ... plus incoming routing parameters
 
 
-const defaultLatLng: LatLngTuple = [48.865572, 2.283523];
+const defaultLatLng: LatLngTuple = [23.1165, -82.3882];
 const zoom: number = 8;
 const iconRayo = new L.Icon({
 
@@ -74,23 +74,27 @@ class FetchData extends React.PureComponent<WeatherForecastProps> {
                 center={defaultLatLng}
                 zoom={zoom}>
                 <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
+                    //url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    url='weatherforecast/{z}/{x}/{y}'
+                    />
+
+                <MarkerClusterGroup>
                 <Marker position={defaultLatLng}>
                     <Popup>
                         A pretty CSS3 popup. <br /> Easily customizable.
                      </Popup>
                 </Marker>
-                <Marker position={[48.765583, 2.283523]} icon={ iconRayo}>
+                    <Marker position={[23.765583, -82.283523]} icon={ iconRayo}>
                     <Popup>
                         A pretty CSS3 popup. <br /> Easily customizable.
                      </Popup>
                 </Marker>
-                <Marker position={[48.965600, 2.283523]} icon={iconRayo2}>
+                    <Marker position={[23.785600, -82.283523]} icon={iconRayo2}>
                     <Popup>
                         A pretty CSS3 popup. <br /> Easily customizable.
                      </Popup>
                 </Marker>
+                </MarkerClusterGroup>;
             </MapContainer>
         );
     }
