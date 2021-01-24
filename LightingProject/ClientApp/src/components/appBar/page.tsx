@@ -14,7 +14,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import List from '@material-ui/core/List';
 import { mainListItems, secondaryListItems } from '../Dashboard/listItems';
-
+import IForm from '../form/index';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -149,9 +149,9 @@ function Page() {
         </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
-        {/* <Divider />
-        <List>{secondaryListItems}</List> */}
+        <List><IForm/></List>
+        <Divider />
+        {/* <List>{secondaryListItems}</List> */}
         </Drawer>
         </React.Fragment>
     )
