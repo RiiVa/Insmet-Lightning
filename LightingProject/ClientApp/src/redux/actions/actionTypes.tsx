@@ -1,0 +1,1 @@
+export const FILTER_LIGHTNING = "FILTER_LIGHTNING"

@@ -8,6 +8,7 @@ import Dashboard from '../Dashboard/Dashboard';
 
 import clsx from 'clsx';
 
+import {useSelector,useStore} from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import {MapContainer,TileLayer,Marker,Popup} from 'react-leaflet'
 import {LatLngTuple} from 'leaflet';
@@ -100,6 +101,12 @@ function Page() {
     const classes = useStyles();
     const defaultLatLng:LatLngTuple = [23,-82];
     const zoom: number = 8;
+
+    const {lightnings} = useSelector<LightningState, StateProps>((state: LightningState) => {
+              return {
+                  lightnings : state.lightnings
+              }
+          });
     return (
         <div className={classes.root}>
             <CssBaseline/>
@@ -116,12 +123,32 @@ function Page() {
                     url='weatherforecast/{z}/{x}/{y}'
                     />
 
+                {lightnings.map((light: ILightning) => {
+                  return <Marker position={[light.latitude,light.longitude]}  >
+                  <Popup >
+                      {
+                        light.ltime
+                      }
+                      <br /> 
+                      {
+                        light.ltype
+                      }
+                      <br /> 
+                      {
+                        light.peakcurrent
+                      }<br /> 
+                      {
+                        light.numsensors
+                      }
+                   </Popup>
+                  </Marker>
 
-                <Marker position={defaultLatLng}  >
+                })}
+                {/* <Marker position={defaultLatLng}  >
                     <Popup >
                         A pretty CSS3 popup. <br /> Easily customizable.
                      </Popup>
-                </Marker>
+                </Marker> */}
                   
             </MapContainer>
             

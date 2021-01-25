@@ -1,9 +1,16 @@
-import React, { Component } from 'react'
+import React, { Component, PropsWithChildren } from 'react'
 import Page from './page'
-export default class form extends Component {
+
+
+
+
+class form extends Component {
+    
     render() {
         return (
-            <Page/>
+            <Page />
         )
     }
 }
+
+export default form

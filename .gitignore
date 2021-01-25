@@ -1,2 +1,6 @@
 
 *.mbtiles
+
+\.vs/LightingProject/v16/
+
+*.v2

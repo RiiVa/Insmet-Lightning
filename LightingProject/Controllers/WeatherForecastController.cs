@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,12 @@ namespace LightingProject.Controllers
     public class WeatherForecastController : ControllerBase
     {
         private MbTilesReader _tileReader;
+        private LightningService _lightservice;
 
-        public WeatherForecastController(MbTilesReader tileReader)
+        public WeatherForecastController(MbTilesReader tileReader , LightningService lightservice)
         {
             _tileReader = tileReader;
+            _lightservice = lightservice;
 
         }
 
@@ -27,7 +30,18 @@ namespace LightingProject.Controllers
             byte[] imageData = _tileReader.GetImageData(x, y, z);
             return File(imageData, "image/png");
         }
-        
+        [HttpPost("Light")]
+        public async Task<IActionResult> Light([FromForm] DateTime init,[FromForm] DateTime end)
+        {
+            if (init == null || end == null)
+            {
+                return Ok();
+            }
+            var list = await _lightservice.GetLightning(init, end);
+
+            return Ok(list);
+        }
+
 
         //private static readonly string[] Summaries = new[]
         //{

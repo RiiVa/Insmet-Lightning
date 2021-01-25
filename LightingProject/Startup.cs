@@ -24,6 +24,7 @@ namespace LightingProject
             services.AddControllersWithViews();
             // add path_local to maps db
             services.AddSingleton(new MbTilesReader("C:/Users/RiiVa/source/repos/LightingProject/LightingProject/tdb.mbtiles"));
+            services.AddSingleton(new LightningService(new lightning_testContext()));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // In production, the React files will be served from this directory
@@ -31,6 +32,13 @@ namespace LightingProject
             {
                 configuration.RootPath = "ClientApp/build";
             });
+            
+
+            //services.AddEntityFrameworkNpgsql()
+            //.AddDbContext<lightning_testContext>(options =>
+            //{
+            //    options. UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
