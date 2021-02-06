@@ -31,16 +31,39 @@ namespace LightingProject.Controllers
             return File(imageData, "image/png");
         }
         [HttpPost("Light")]
-        public async Task<IActionResult> Light([FromForm] DateTime init,[FromForm] DateTime end)
+        public async Task<IActionResult> Light([FromForm] DateTime init,[FromForm] DateTime end, [FromForm] int[] peak, [FromForm] int type)
         {
-            if (init == null || end == null)
+            if (init == null || end == null || peak == null || type == null)
             {
                 return Ok();
             }
-            var list = await _lightservice.GetLightning(init, end);
+            
+            List<Lightning> list;
+            try {
+                if (peak[0] == 0 && peak[1] == 0)
+                    list = await _lightservice.GetLightning(init, end, type);
+                else list = await _lightservice.GetLightning(init, end, peak, type);
+                return Ok(list);
+            }
+            catch
+            {
+                return Ok();
+            }
+            
 
-            return Ok(list);
+            
         }
+        //[HttpPost("Light")]
+        //public async Task<IActionResult> Light([FromForm] DateTime init, [FromForm] DateTime end, [FromForm] int type)
+        //{
+        //    if (init == null || end == null  || type == null)
+        //    {
+        //        return Ok();
+        //    }
+        //    var list = await _lightservice.GetLightning(init, end,type);
+
+        //    return Ok(list);
+        //}
 
 
         //private static readonly string[] Summaries = new[]

@@ -33,10 +33,29 @@ namespace LightingProject
         {
             this.DbContext = DbContext;
         }
-        public async Task< List<Lightning>> GetLightning(DateTime initial, DateTime final)
+        public async Task< List<Lightning>> GetLightning(DateTime initial, DateTime final,int[] peak, int type)
         {
             
-            return await DbContext.Lightnings.Where(t => initial <= t.Ltime &&  t.Ltime <= final && t.Latitude != 0 && t.Longitude != 0)
+            return await DbContext.Lightnings.Where( t => t.Ltype != 9 && initial <= t.Ltime &&  t.Ltime <= final && peak[0] <= t.Peakcurrent && t.Peakcurrent <= peak[1] && t.Ltype <= type)
+                .Select(
+                s => new Lightning
+                {
+                    Ltime = s.Ltime,
+                    Ltype = s.Ltype,
+                    Latitude = s.Latitude,
+                    Longitude = s.Longitude,
+                    Peakcurrent = s.Peakcurrent,
+                    Icheight = s.Icheight,
+                    Numsensors = s.Numsensors,
+                    Icmultiplicity = s.Icmultiplicity,
+                    Cgmultiplicity = s.Cgmultiplicity,
+                }
+            ).ToListAsync();
+        }
+        public async Task<List<Lightning>> GetLightning(DateTime initial, DateTime final, int type)
+        {
+
+            return await DbContext.Lightnings.Where(t => t.Ltype != 9 && initial <= t.Ltime && t.Ltime <= final && t.Ltype <= type)
                 .Select(
                 s => new Lightning
                 {

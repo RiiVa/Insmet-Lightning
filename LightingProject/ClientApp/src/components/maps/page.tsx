@@ -12,8 +12,11 @@ import {useSelector,useStore} from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import {MapContainer,TileLayer,Marker,Popup} from 'react-leaflet'
 import {LatLngTuple} from 'leaflet';
-import './styles.css'
+import L from 'leaflet';
+import MarkerClusterGroup from 'react-leaflet-markercluster';
 
+import './styles.css'
+require('react-leaflet-markercluster/dist/styles.min.css');
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -74,12 +77,25 @@ const useStyles = makeStyles(theme => ({
       width: theme.spacing(9),
     },
   },
-  appBarSpacer: theme.mixins.toolbar,
+  appBarSpacer: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  },
   content: {
     flexGrow: 1,
     height: '100vh',
     overflow: 'auto',
   },
+  contentShift: {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: 0,
+    },
   container: {
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
@@ -95,7 +111,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
+let red = L.icon({
+  iconUrl: require('../marker-icon.png'),
+  
+})
 
 function Page() {
     const classes = useStyles();
@@ -111,33 +130,38 @@ function Page() {
         <div className={classes.root}>
             <CssBaseline/>
             <AppBar/>
-            <main className={classes.content}>
+            <main 
+              className={classes.content}>
               
             <div className={classes.appBarSpacer} />
             
             <MapContainer id="mapId"
                 center={defaultLatLng}
                 zoom={zoom}>
+                  
                 <TileLayer
                     // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     url='weatherforecast/{z}/{x}/{y}'
                     />
+                {/* <Marker position={defaultLatLng}>
 
+                </Marker> */}
+                <MarkerClusterGroup disableClusteringAtZoom='11' spiderfyOnMaxZoom={false} maxClusterRadius={80}>
                 {lightnings.map((light: ILightning) => {
                   return <Marker position={[light.latitude,light.longitude]}  >
                   <Popup >
-                      {
+                      DateTime: {
                         light.ltime
                       }
                       <br /> 
-                      {
-                        light.ltype
+                      Type: {
+                        (light.ltype == 0)? 'cg' : 'ic'
                       }
                       <br /> 
-                      {
+                      Peak Current: {
                         light.peakcurrent
                       }<br /> 
-                      {
+                      Sensors: {
                         light.numsensors
                       }
                    </Popup>
@@ -149,7 +173,7 @@ function Page() {
                         A pretty CSS3 popup. <br /> Easily customizable.
                      </Popup>
                 </Marker> */}
-                  
+                  </MarkerClusterGroup>
             </MapContainer>
             
             </main>
