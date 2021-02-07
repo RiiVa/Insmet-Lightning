@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Component } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
 
@@ -10,7 +10,7 @@ import clsx from 'clsx';
 
 import {useSelector,useStore} from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
-import {MapContainer,TileLayer,Marker,Popup} from 'react-leaflet'
+import {TileLayer,Marker,Popup,Map} from 'react-leaflet'
 import {LatLngTuple} from 'leaflet';
 import L from 'leaflet';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
@@ -18,6 +18,10 @@ import MarkerClusterGroup from 'react-leaflet-markercluster';
 import './styles.css'
 require('react-leaflet-markercluster/dist/styles.min.css');
 const drawerWidth = 240;
+
+ 
+// class MarkerClusterGroup extends Component<MarkerClusterGroupProps> {}
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -135,7 +139,7 @@ function Page() {
               
             <div className={classes.appBarSpacer} />
             
-            <MapContainer id="mapId"
+            <Map id="mapId"
                 center={defaultLatLng}
                 zoom={zoom}>
                   
@@ -146,7 +150,7 @@ function Page() {
                 {/* <Marker position={defaultLatLng}>
 
                 </Marker> */}
-                <MarkerClusterGroup disableClusteringAtZoom='11' spiderfyOnMaxZoom={false} maxClusterRadius={80}>
+                <MarkerClusterGroup disableClusteringAtZoom={11} spiderfyOnMaxZoom={false} maxClusterRadius={80}>
                 {lightnings.map((light: ILightning) => {
                   return <Marker position={[light.latitude,light.longitude]}  >
                   <Popup >
@@ -174,7 +178,7 @@ function Page() {
                      </Popup>
                 </Marker> */}
                   </MarkerClusterGroup>
-            </MapContainer>
+            </Map>
             
             </main>
             </div>
