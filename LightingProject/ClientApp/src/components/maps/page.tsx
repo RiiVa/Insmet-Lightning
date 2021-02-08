@@ -10,13 +10,13 @@ import clsx from 'clsx';
 
 import {useSelector,useStore} from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
-import {TileLayer,Marker,Popup,Map} from 'react-leaflet'
+import {TileLayer,Marker,Popup, MapContainer} from 'react-leaflet'
 import {LatLngTuple} from 'leaflet';
 import L from 'leaflet';
-import MarkerClusterGroup from 'react-leaflet-markercluster';
+// import MarkerClusterGroup from 'react-leaflet-markercluster';
 
 import './styles.css'
-require('react-leaflet-markercluster/dist/styles.min.css');
+// require('react-leaflet-markercluster/dist/styles.min.css');
 const drawerWidth = 240;
 
  
@@ -139,18 +139,18 @@ function Page() {
               
             <div className={classes.appBarSpacer} />
             
-            <Map id="mapId"
+            <MapContainer id='mapId'
                 center={defaultLatLng}
                 zoom={zoom}>
                   
                 <TileLayer
-                    // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    url='weatherforecast/{z}/{x}/{y}'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    // url='weatherforecast/{z}/{x}/{y}'
                     />
                 {/* <Marker position={defaultLatLng}>
 
                 </Marker> */}
-                <MarkerClusterGroup disableClusteringAtZoom={11} spiderfyOnMaxZoom={false} maxClusterRadius={80}>
+                {/* <MarkerClusterGroup disableClusteringAtZoom={11} spiderfyOnMaxZoom={false} maxClusterRadius={80}> */}
                 {lightnings.map((light: ILightning) => {
                   return <Marker position={[light.latitude,light.longitude]}  >
                   <Popup >
@@ -177,8 +177,8 @@ function Page() {
                         A pretty CSS3 popup. <br /> Easily customizable.
                      </Popup>
                 </Marker> */}
-                  </MarkerClusterGroup>
-            </Map>
+                  {/* </MarkerClusterGroup> */}
+            </MapContainer>
             
             </main>
             </div>
