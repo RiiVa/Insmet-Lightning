@@ -10,8 +10,9 @@
 import React, { Fragment , useState}  from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider';
+// import Typography from '@material-ui/core/Typography';
+// import Slider from '@material-ui/core/Slider';
+// import Grid from '@material-ui/core/Grid';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {useDispatch} from 'react-redux'
 import {RootDispatcher} from '../../redux/actions/actionCreators'
@@ -37,15 +38,16 @@ const useStyles = makeStyles((theme: Theme) =>
         paddingLeft: 8,
         paddingRight:8,
     },
+    
   }),
 );
 type Props = {
   filterLight: (filter : IFilterLightning | any) => void
 } 
 
-function valuetext(value: number) {
-  return `${value}`;
-}
+// function valuetext(value: number) {
+//   return `${value}`;
+// }
 
 function Page(  ) {
     const classes = useStyles();
@@ -63,10 +65,10 @@ function Page(  ) {
     
     // borrar cuando se le muestre a osa
 
-    const [peakCurrent, setPeakC] = React.useState<number[]>([-10000, 10000]);
-    const handlePeakCurrent = (event: any, newValue: number | number[]) => {
-      setPeakC(newValue as number[]);
-    };
+    // const [peakCurrent, setPeakC] = React.useState<number[]>([-10000, 10000]);
+    // const handlePeakCurrent = (event: any, newValue: number | number[]) => {
+    //   setPeakC(newValue as number[]);
+    // };
 
     // 
     const handleTypeFlash = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -129,7 +131,7 @@ function Page(  ) {
          <form onSubmit={filterLightning} className={classes.container} noValidate>
            <ListItem className={classes.just}>
             {/* <ListItemIcon>
-                <DashboardIcon />
+                // <DashboardIcon />
             </ListItemIcon> */}
            
             <TextField
@@ -159,7 +161,7 @@ function Page(  ) {
                 }}
             />
             </ListItem>
-            <ListItem className={classes.just}>
+            {/* <ListItem className={classes.just}>
               <Slider
               aria-label = 'hello'
               value={peakCurrent}
@@ -170,7 +172,7 @@ function Page(  ) {
                 aria-labelledby="range-slider"
                 getAriaValueText={valuetext}
               />
-            </ListItem>
+            </ListItem> */}
             <ListItem >
             <TextField id="peakInit" label="PeakInit" value={peakInit} onChange={handlePeakInit}/>
             <TextField id="peakEnd" label="PeakEnd" value={peakEnd} onChange={handlePeakEnd}/>

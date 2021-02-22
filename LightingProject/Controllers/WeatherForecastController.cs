@@ -38,17 +38,13 @@ namespace LightingProject.Controllers
                 return Ok();
             }
             
-            List<Lightning> list;
-            try {
+            List<Flash> list ;
+            
                 if (peak[0] == 0 && peak[1] == 0)
                     list = await _lightservice.GetLightning(init, end, type);
                 else list = await _lightservice.GetLightning(init, end, peak, type);
                 return Ok(list);
-            }
-            catch
-            {
-                return Ok();
-            }
+            
             
 
             

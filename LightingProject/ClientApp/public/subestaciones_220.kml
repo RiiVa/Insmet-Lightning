@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+  <Document>
+    <Folder>
+      <name>Subestaciones</name>
+      <open>1</open>
+      <Style>
+        <ListStyle>
+          <listItemType>check</listItemType>
+          <bgColor>00ffffff</bgColor>
+        </ListStyle>
+      </Style>
+      <Folder>
+        <name>Subestaciones_2016_2_9_11_43.KML</name>
+        <open>1</open>
+        <Style>
+          <ListStyle>
+            <listItemType>check</listItemType>
+            <bgColor>00ffffff</bgColor>
+          </ListStyle>
+        </Style>
+        <Placemark>
+          <name>HABANA</name>
+          <description>&#60;br&#62;&#60;br&#62;&#60;br&#62;
+    &#60;table border=&#34;1&#34; padding=&#34;0&#34;&#62;
+    &#60;tr&#62;&#60;td&#62;Tipo&#60;/td&#62;&#60;td&#62;Sub-Estación Eléctrica&#60;/td&#62;&#60;/tr&#62;
+    &#60;tr&#62;&#60;td&#62;Nombre&#60;/td&#62;&#60;td&#62;HABANA&#60;/td&#62;&#60;/tr&#62;
+        </description>
+          <Style>
+            <LineStyle>
+              <color>A6000000</color>
+              <width>2</width>
+            </LineStyle>
+            <PolyStyle>
+              <color>A9C0DCC0</color>
+              <fill>1</fill>
+            </PolyStyle>
+          </Style>
+          <Polygon>
+            <outerBoundaryIs>
+              <LinearRing>
+                <extrude>1</extrude>
+                <coordinates>-82.423417,23.043084,0 -82.422403,23.044703,0 -82.424604,23.045953,0 -82.425531,23.044498,0 -82.425149,23.044286,0 -82.425256,23.044116,0 -82.423417,23.043084,0 </coordinates>
+              </LinearRing>
+            </outerBoundaryIs>
+          </Polygon>
+        </Placemark>
+        <Placemark>
+          <name>ACEROS CARIBE</name>
+          <description>&#60;br&#62;&#60;br&#62;&#60;br&#62;
+    &#60;table border=&#34;1&#34; padding=&#34;0&#34;&#62;
+    &#60;tr&#62;&#60;td&#62;Tipo&#60;/td&#62;&#60;td&#62;Sub-Estación Eléctrica&#60;/td&#62;&#60;/tr&#62;
+    &#60;tr&#62;&#60;td&#62;Nombre&#60;/td&#62;&#60;td&#62;ACEROS CARIBE&#60;/td&#62;&#60;/tr&#62;
+        </description>
+          <Style>
+            <LineStyle>
+              <color>A6000000</color>
+              <width>2</width>
+            </LineStyle>
+            <PolyStyle>
+              <color>A9C0DCC0</color>
+              <fill>1</fill>
+            </PolyStyle>
+          </Style>
+          <Polygon>
+            <outerBoundaryIs>
+              <LinearRing>
+                <extrude>1</extrude>
+                <coordinates>-82.284565,23.040182,0 -82.28397,23.038787,0 -82.282008,23.039457,0 -82.282591,23.040874,0 -82.284565,23.040197,0 -82.284565,23.040197,0 -82.284565,23.040182,0 </coordinates>
+              </LinearRing>
+            </outerBoundaryIs>
+          </Polygon>
+        </Placemark>
+        <Placemark>
+          <name>MATANZAS</name>
+          <description>&#60;br&#62;&#60;br&#62;&#60;br&#62;
+    &#60;table border=&#34;1&#34; padding=&#34;0&#34;&#62;
+    &#60;tr&#62;&#60;td&#62;Tipo&#60;/td&#62;&#60;td&#62;Sub-Estación Eléctrica&#60;/td&#62;&#60;/tr&#62;
+    &#60;tr&#62;&#60;td&#62;Nombre&#60;/td&#62;&#60;td&#62;MATANZAS&#60;/td&#62;&#60;/tr&#62;
+        </description>
+          <Style>
+            <LineStyle>
+              <color>A6000000</color>
+              <width>2</width>
+            </LineStyle>
+            <PolyStyle>
+              <color>A9C0DCC0</color>
+              <fill>1</fill>
+            </PolyStyle>
+          </Style>
+          <Polygon>
+            <outerBoundaryIs>
+              <LinearRing>
+                <extrude>1</extrude>
+                <coordinates>-81.58955,23.000324,0 -81.589168,23.000114,0 -81.587843,23.001892,0 -81.590693,23.003909,0 -81.592133,23.002095,0 -81.589937,23.000605,0 -81.58955,23.000324,0 </coordinates>
+              </LinearRing>
+            </outerBoundaryIs>
+          </Polygon>
+        </Placemark>
+        <Placemark>
+          <name>Sub CTE HABANA</name>
+          <description>&#60;br&#62;&#60;br&#62;&#60;br&#62;
+    &#60;table border=&#34;1&#34; padding=&#34;0&#34;&#62;
+    &#60;tr&#62;&#60;td&#62;Tipo&#60;/td&#62;&#60;td&#62;Sub-Estación Eléctrica&#60;/td&#62;&#60;/tr&#62;
+    &#60;tr&#62;&#60;td&#62;Nombre&#60;/td&#62;&#60;td&#62;Sub CTE HABANA&#60;/td&#62;&#60;/tr&#62;
+        </description>
+          <Style>
+            <LineStyle>
+              <color>A6000000</color>
+              <width>2</width>
+            </LineStyle>
+            <PolyStyle>
+              <color>A9C0DCC0</color>
+              <fill>1</fill>
+            </PolyStyle>
+          </Style>
+          <Polygon>
+            <outerBoundaryIs>
+              <LinearRing>
+                <extrude>1</extrude>
+                <coordinates>-81.991305,23.152474,0 -81.991305,23.152474,0 -81.992055,23.15159,0 -81.991478,23.151187,0 -81.992005,23.150475,0 -81.990604,23.149511,0 -81.990042,23.150192,0 -81.989429,23.14974,0 -81.988985,23.150279,0 -81.989385,23.150601,0 -81.989632,23.150802,0 -81.98921,23.1513,0 -81.989751,23.151622,0 -81.990446,23.152144,0 -81.990551,23.151901,0 -81.991281,23.152455,0 -81.991305,23.152474,0 </coordinates>
+              </LinearRing>
+            </outerBoundaryIs>
+          </Polygon>
+        </Placemark>
+        <Placemark>
+          <name>CTE MARIEL</name>
+          <description>&#60;br&#62;&#60;br&#62;&#60;br&#62;
+    &#60;table border=&#34;1&#34; padding=&#34;0&#34;&#62;
+    &#60;tr&#62;&#60;td&#62;Tipo&#60;/td&#62;&#60;td&#62;Sub-Estación Eléctrica&#60;/td&#62;&#60;/tr&#62;
+    &#60;tr&#62;&#60;td&#62;Nombre&#60;/td&#62;&#60;td&#62;CTE MARIEL&#60;/td&#62;&#60;/tr&#62;
+        </description>
+          <Style>
+            <LineStyle>
+              <color>A6000000</color>
+              <width>2</width>
+            </LineStyle>
+            <PolyStyle>
+              <color>A9C0DCC0</color>
+              <fill>1</fill>
+            </PolyStyle>
+          </Style>
+          <Polygon>
+            <outerBoundaryIs>
+              <LinearRing>
+                <extrude>1</extrude>
+                <coordinates>-82.746124,23.018499,0 -82.744842,23.020603,0 -82.745574,23.021135,0 -82.746287,23.021471,0 -82.746545,23.021661,0 -82.7469,23.021984,0 -82.747115,23.022164,0 -82.747506,23.022131,0 -82.747771,23.021759,0 -82.749285,23.019488,0 -82.747763,23.018591,0 -82.747298,23.019392,0 -82.746823,23.019134,0 -82.746625,23.018401,0 -82.746113,23.018498,0 -82.746113,23.018498,0 -82.746124,23.018499,0 </coordinates>
+              </LinearRing>
+            </outerBoundaryIs>
+          </Polygon>
+        </Placemark>
+        <Placemark>
+          <name>COTORRO</name>
+          <description>&#60;br&#62;&#60;br&#62;&#60;br&#62;
+    &#60;table border=&#34;1&#34; padding=&#34;0&#34;&#62;
+    &#60;tr&#62;&#60;td&#62;Tipo&#60;/td&#62;&#60;td&#62;Sub-Estación Eléctrica&#60;/td&#62;&#60;/tr&#62;
+    &#60;tr&#62;&#60;td&#62;Nombre&#60;/td&#62;&#60;td&#62;COTORRO&#60;/td&#62;&#60;/tr&#62;
+        </description>
+          <Style>
+            <LineStyle>
+              <color>A6000000</color>
+              <width>2</width>
+            </LineStyle>
+            <PolyStyle>
+              <color>A9C0DCC0</color>
+              <fill>1</fill>
+            </PolyStyle>
+          </Style>
+          <Polygon>
+            <outerBoundaryIs>
+              <LinearRing>
+                <extrude>1</extrude>
+                <coordinates>-82.220225,23.041004,0 -82.220457,23.040611,0 -82.221222,23.040956,0 -82.22256,23.03871,0 -82.222391,23.038598,0 -82.222638,23.038148,0 -82.222053,23.037554,0 -82.220755,23.036791,0 -82.220152,23.037403,0 -82.220649,23.037721,0 -82.219082,23.040415,0 -82.220225,23.041004,0 </coordinates>
+              </LinearRing>
+            </outerBoundaryIs>
+          </Polygon>
+        </Placemark>
+        <Placemark>
+          <name>CTE GUITERAS</name>
+          <description>&#60;br&#62;&#60;br&#62;&#60;br&#62;
+    &#60;table border=&#34;1&#34; padding=&#34;0&#34;&#62;
+    &#60;tr&#62;&#60;td&#62;Tipo&#60;/td&#62;&#60;td&#62;Sub-Estación Eléctrica&#60;/td&#62;&#60;/tr&#62;
+    &#60;tr&#62;&#60;td&#62;Nombre&#60;/td&#62;&#60;td&#62;CTE GUITERAS&#60;/td&#62;&#60;/tr&#62;
+        </description>
+          <Style>
+            <LineStyle>
+              <color>A6000000</color>
+              <width>2</width>
+            </LineStyle>
+            <PolyStyle>
+              <color>A9C0DCC0</color>
+              <fill>1</fill>
+            </PolyStyle>
+          </Style>
+          <Polygon>
+            <outerBoundaryIs>
+              <LinearRing>
+                <extrude>1</extrude>
+                <coordinates>-81.531439,23.102414,0 -81.53168,23.10234,0 -81.531611,23.102179,0 -81.532487,23.101889,0 -81.532028,23.100738,0 -81.531016,23.10109,0 -81.530062,23.099309,0 -81.530641,23.099113,0 -81.530388,23.098485,0 -81.529807,23.098667,0 -81.529738,23.098701,0 -81.529962,23.09936,0 -81.530422,23.100148,0 -81.530953,23.10118,0 -81.531439,23.102414,0 </coordinates>
+              </LinearRing>
+            </outerBoundaryIs>
+          </Polygon>
+        </Placemark>
+        <Placemark>
+          <name>CTE HABANA</name>
+          <description>&#60;br&#62;&#60;br&#62;&#60;br&#62;
+    &#60;table border=&#34;1&#34; padding=&#34;0&#34;&#62;
+    &#60;tr&#62;&#60;td&#62;Tipo&#60;/td&#62;&#60;td&#62;Termoeléctrica&#60;/td&#62;&#60;/tr&#62;
+    &#60;tr&#62;&#60;td&#62;Nombre&#60;/td&#62;&#60;td&#62;CTE HABANA&#60;/td&#62;&#60;/tr&#62;
+        </description>
+          <Style>
+            <LineStyle>
+              <color>A6000000</color>
+              <width>2</width>
+            </LineStyle>
+            <PolyStyle>
+              <color>A9C0DCC0</color>
+              <fill>1</fill>
+            </PolyStyle>
+          </Style>
+          <Polygon>
+            <outerBoundaryIs>
+              <LinearRing>
+                <extrude>1</extrude>
+                <coordinates>-81.947373,23.1617,0 -81.947816,23.160826,0 -81.947339,23.160599,0 -81.947858,23.159464,0 -81.95073,23.160652,0 -81.95071,23.161083,0 -81.955831,23.161314,0 -81.955816,23.161535,0 -81.957211,23.161635,0 -81.957296,23.16148,0 -81.965835,23.163556,0 -81.965932,23.159185,0 -81.965928,23.157114,0 -81.964926,23.157008,0 -81.964402,23.157017,0 -81.963514,23.157108,0 -81.963013,23.157153,0 -81.962728,23.157142,0 -81.960729,23.157052,0 -81.959775,23.156939,0 -81.959201,23.156791,0 -81.958369,23.156377,0 -81.957874,23.156084,0 -81.957449,23.155854,0 -81.957159,23.155717,0 -81.956842,23.155634,0 -81.956641,23.155637,0 -81.956249,23.155666,0 -81.95563,23.155817,0 -81.954786,23.155956,0 -81.952896,23.155992,0 -81.950685,23.155946,0 -81.946167,23.155767,0 -81.94595,23.158691,0 -81.94744,23.159291,0 -81.946879,23.160393,0 -81.946379,23.160158,0 -81.945873,23.161179,0 -81.947373,23.1617,0 </coordinates>
+              </LinearRing>
+            </outerBoundaryIs>
+          </Polygon>
+        </Placemark>
+      </Folder>
+    </Folder>
+  </Document>
+</kml>

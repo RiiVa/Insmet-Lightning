@@ -9,17 +9,22 @@ type ClickHandlerParam = React.MouseEvent;
 interface StateProps {
     lightnings : ILightning[]
     }
+interface LDate{
+    id:number
+    date1:Date
+}
 interface ILightning{
-
-    ltime:Date
+    id:number
+    idDateNavigation:LDate
     ltype:number
     latitude:number
     longitude:number
     peakcurrent:number
     icheight:number
-    numsensors:number
-    icmultiplicity:number
-    cgmultiplicity:number
+    sensor:number
+    icmulti:number
+    cgmulti:number
+    pulses:number[]
 
 }
 

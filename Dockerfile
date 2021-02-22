@@ -4,8 +4,12 @@ FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
+RUN curl -sL https://deb.nodesource.com/setup_10.x |  bash -
+RUN apt-get install -y nodejs
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
+RUN curl -sL https://deb.nodesource.com/setup_10.x |  bash -
+RUN apt-get install -y nodejs
 WORKDIR /src
 COPY ["LightingProject/LightingProject.csproj", "LightingProject/"]
 RUN dotnet restore "LightingProject/LightingProject.csproj"
@@ -20,3 +24,5 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "LightingProject.dll"]
+
+

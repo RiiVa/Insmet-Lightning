@@ -8,13 +8,13 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
 COPY ["LightingProject/LightingProject.csproj", "LightingProject/"]
-RUN dotnet restore "LightingProject/LightingProject.csproj"
+RUN dotnet restore "LightingProject.csproj"
 COPY . .
-WORKDIR "/src/LightingProject"
-RUN dotnet build "LightingProject.csproj" -c Release -o /app/build
+WORKDIR "/LightingProject"
+RUN dotnet build "LightingProject/LightingProject.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "LightingProject.csproj" -c Release -o /app/publish
+RUN dotnet publish "LightingProject/LightingProject.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

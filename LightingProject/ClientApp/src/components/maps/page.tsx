@@ -1,21 +1,24 @@
-import React, { Component } from 'react'
+import React, { Component,useState } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import Container from '@material-ui/core/Container'
+// import Container from '@material-ui/core/Container'
 
 import AppBar from '../appBar/index';
-import Dashboard from '../Dashboard/Dashboard';
+// import Dashboard from '../Dashboard/Dashboard';
 
 
-import clsx from 'clsx';
+// import clsx from 'clsx';
 
 import {useSelector,useStore} from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
-import {TileLayer,Marker,Popup, MapContainer} from 'react-leaflet'
+import {TileLayer,Marker,Popup, MapContainer, LayersControl, GeoJSON} from 'react-leaflet'
 import {LatLngTuple} from 'leaflet';
 import L from 'leaflet';
 // import MarkerClusterGroup from 'react-leaflet-markercluster';
 
 import './styles.css'
+// import prueba from "../estructuras_220.json"
+import axios from 'axios'
+import ReactLeafletKml from "react-leaflet-kml";
 // require('react-leaflet-markercluster/dist/styles.min.css');
 const drawerWidth = 240;
 
@@ -120,11 +123,49 @@ let red = L.icon({
   
 })
 
+// console.log(prueba)
+
 function Page() {
     const classes = useStyles();
     const defaultLatLng:LatLngTuple = [23,-82];
     const zoom: number = 8;
+    const [kmlline, setKmlline] = React.useState<null | Document>();
+    const [kmlstruct, setKmlstruct] = React.useState<null | Document>();
+    const [kmlsub, setKmlsub] = React.useState<null | Document>();
 
+    React.useEffect(() => {
+      fetch(
+        "subestaciones_220.kml"
+      )
+        .then((res) => res.text())
+        .then((kmlText) => {
+          const parser = new DOMParser();
+          const kml = parser.parseFromString(kmlText, "text/xml");
+          setKmlsub(kml);
+        });
+    }, []);
+    React.useEffect(() => {
+      fetch(
+        "estructuras_220.kml"
+      )
+        .then((res) => res.text())
+        .then((kmlText) => {
+          const parser = new DOMParser();
+          const kml = parser.parseFromString(kmlText, "text/xml");
+          setKmlstruct(kml);
+        });
+    }, []);
+    React.useEffect(() => {
+      fetch(
+        "lineas_220.kml"
+      )
+        .then((res) => res.text())
+        .then((kmlText) => {
+          const parser = new DOMParser();
+          const kml = parser.parseFromString(kmlText, "text/xml");
+          setKmlline(kml);
+        });
+    }, []);
     const {lightnings} = useSelector<LightningState, StateProps>((state: LightningState) => {
               return {
                   lightnings : state.lightnings
@@ -142,20 +183,36 @@ function Page() {
             <MapContainer id='mapId'
                 center={defaultLatLng}
                 zoom={zoom}>
-                  
+                <LayersControl position="topright">
+                {/* <LayersControl.BaseLayer checked name="Local Map"> */}
                 <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    // url='weatherforecast/{z}/{x}/{y}'
-                    />
-                {/* <Marker position={defaultLatLng}>
+                    // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    url='weatherforecast/{z}/{x}/{y}'
 
+                    />
+                {/* </LayersControl.BaseLayer>   */}
+
+                <LayersControl.Overlay checked name="Line">
+                {kmlline && <ReactLeafletKml kml={kmlline} />}
+                </LayersControl.Overlay>
+                {/* <LayersControl.Overlay checked name="Structure">
+                {kmlstruct && <ReactLeafletKml kml={kmlstruct} />}
+                </LayersControl.Overlay>*/}
+                <LayersControl.Overlay checked name="Substations">
+                {kmlsub && <ReactLeafletKml kml={kmlsub} />}
+                </LayersControl.Overlay> 
+                 
+                {/* <Marker position={defaultLatLng}>
+                
                 </Marker> */}
                 {/* <MarkerClusterGroup disableClusteringAtZoom={11} spiderfyOnMaxZoom={false} maxClusterRadius={80}> */}
+                <LayersControl.Overlay checked name="Lightnings Data">
                 {lightnings.map((light: ILightning) => {
+                  // console.log(light)
                   return <Marker position={[light.latitude,light.longitude]}  >
                   <Popup >
                       DateTime: {
-                        light.ltime
+                        light.idDateNavigation.date1
                       }
                       <br /> 
                       Type: {
@@ -166,12 +223,15 @@ function Page() {
                         light.peakcurrent
                       }<br /> 
                       Sensors: {
-                        light.numsensors
+                        light.sensor
                       }
                    </Popup>
                   </Marker>
 
                 })}
+                </LayersControl.Overlay>
+                </LayersControl> 
+                
                 {/* <Marker position={defaultLatLng}  >
                     <Popup >
                         A pretty CSS3 popup. <br /> Easily customizable.

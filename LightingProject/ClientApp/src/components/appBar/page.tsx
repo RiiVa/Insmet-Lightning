@@ -42,6 +42,7 @@ const useStyles = makeStyles(theme => ({
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
+      backgroundColor: '#1e1e1edb',
     },
     appBarShift: {
       marginLeft: drawerWidth,
@@ -119,7 +120,7 @@ function Page() {
 
     return (
         <React.Fragment>
-        <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+        <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)} >
             <Toolbar className= "appBar">
             <IconButton
             edge="start"
