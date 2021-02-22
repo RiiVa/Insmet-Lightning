@@ -1,25 +1,25 @@
-import React, { Component,useState } from 'react'
+import React from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 // import Container from '@material-ui/core/Container'
 
 import AppBar from '../appBar/index';
 // import Dashboard from '../Dashboard/Dashboard';
-
+import MyMarker from '../markers/markerclusert'
 
 // import clsx from 'clsx';
 
-import {useSelector,useStore} from 'react-redux'
+import {useSelector} from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
-import {TileLayer,Marker,Popup, MapContainer, LayersControl, GeoJSON} from 'react-leaflet'
+import {TileLayer, MapContainer, LayersControl} from 'react-leaflet'
 import {LatLngTuple} from 'leaflet';
 import L from 'leaflet';
 // import MarkerClusterGroup from 'react-leaflet-markercluster';
 
 import './styles.css'
 // import prueba from "../estructuras_220.json"
-import axios from 'axios'
+// import axios from 'axios'
 import ReactLeafletKml from "react-leaflet-kml";
-// require('react-leaflet-markercluster/dist/styles.min.css');
+
 const drawerWidth = 240;
 
  
@@ -118,10 +118,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-let red = L.icon({
-  iconUrl: require('../marker-icon.png'),
-  
-})
+
 
 // console.log(prueba)
 
@@ -166,11 +163,11 @@ function Page() {
           setKmlline(kml);
         });
     }, []);
-    const {lightnings} = useSelector<LightningState, StateProps>((state: LightningState) => {
-              return {
-                  lightnings : state.lightnings
-              }
-          });
+    // const {lightnings} = useSelector<LightningState, StateProps>((state: LightningState) => {
+    //           return {
+    //               lightnings : state.lightnings
+    //           }
+    //       });
     return (
         <div className={classes.root}>
             <CssBaseline/>
@@ -192,46 +189,30 @@ function Page() {
                     />
                 {/* </LayersControl.BaseLayer>   */}
 
-                <LayersControl.Overlay checked name="Line">
+                {/* <LayersControl.Overlay checked name="Line">
                 {kmlline && <ReactLeafletKml kml={kmlline} />}
                 </LayersControl.Overlay>
-                {/* <LayersControl.Overlay checked name="Structure">
+                <LayersControl.Overlay checked name="Structure">
                 {kmlstruct && <ReactLeafletKml kml={kmlstruct} />}
-                </LayersControl.Overlay>*/}
+                </LayersControl.Overlay>
                 <LayersControl.Overlay checked name="Substations">
                 {kmlsub && <ReactLeafletKml kml={kmlsub} />}
-                </LayersControl.Overlay> 
+                </LayersControl.Overlay>  */}
                  
                 {/* <Marker position={defaultLatLng}>
                 
                 </Marker> */}
                 {/* <MarkerClusterGroup disableClusteringAtZoom={11} spiderfyOnMaxZoom={false} maxClusterRadius={80}> */}
-                <LayersControl.Overlay checked name="Lightnings Data">
-                {lightnings.map((light: ILightning) => {
-                  // console.log(light)
-                  return <Marker position={[light.latitude,light.longitude]}  >
-                  <Popup >
-                      DateTime: {
-                        light.idDateNavigation.date1
-                      }
-                      <br /> 
-                      Type: {
-                        (light.ltype == 0)? 'cg' : 'ic'
-                      }
-                      <br /> 
-                      Peak Current: {
-                        light.peakcurrent
-                      }<br /> 
-                      Sensors: {
-                        light.sensor
-                      }
-                   </Popup>
-                  </Marker>
+                {/* <LayersControl.Overlay checked name="Lightnings Data">
+                
 
-                })}
-                </LayersControl.Overlay>
+
+                </LayersControl.Overlay> */}
                 </LayersControl> 
                 
+                <MyMarker/>
+
+
                 {/* <Marker position={defaultLatLng}  >
                     <Popup >
                         A pretty CSS3 popup. <br /> Easily customizable.

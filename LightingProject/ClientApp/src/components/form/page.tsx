@@ -89,8 +89,8 @@ function Page(  ) {
       })
     }
     const validation = () => {
-      if (filter == undefined) return true;
-      if ( (filter as IFilterLightning).init == undefined || (filter as IFilterLightning).end == undefined) return true;
+      if (filter === undefined) return true;
+      if ( (filter as IFilterLightning).init === undefined || (filter as IFilterLightning).end === undefined) return true;
       
       if( Date.parse((filter as IFilterLightning).init)>= Date.parse((filter as IFilterLightning).end) )return true;
       
@@ -113,8 +113,8 @@ function Page(  ) {
       formdata.append('init', filter2.init )
       formdata.append('end',filter2.end )
      
-      formdata.append('peak',  (peakInit == '')? '0':peakInit  )
-      formdata.append('peak', (peakEnd == '')?'0':peakEnd );
+      formdata.append('peak',  (peakInit === '')? '0':peakInit  )
+      formdata.append('peak', (peakEnd === '')?'0':peakEnd );
       
       if(cg && ic)formdata.append('type', '2'  ) ;
       else{if (cg)formdata.append('type', '0'  ) ;

@@ -25,8 +25,24 @@ namespace LightingProject
         }
         public async Task<List<Flash>> GetLightning(DateTime initial, DateTime final, int[] peak, int type)
         {
-
-            return await DbContext.Flashes.Where(t => t.Ltype != 9 && initial <= t.IdDateNavigation.Date1 && t.IdDateNavigation.Date1 <= final && peak[0] <= t.Peakcurrent && t.Peakcurrent <= peak[1] && t.Ltype <= type)
+            if(type ==2 )
+                return await DbContext.Flashes.Where(t => t.Ltype != 9 && initial <= t.IdDateNavigation.Date1 && t.IdDateNavigation.Date1 <= final && peak[0] <= t.Peakcurrent && t.Peakcurrent <= peak[1] && t.Ltype <= type)
+                 .Select(
+                 s => new Flash
+                 {
+                     IdDateNavigation = s.IdDateNavigation,
+                     Ltype = s.Ltype,
+                     Latitude = s.Latitude,
+                     Longitude = s.Longitude,
+                     Peakcurrent = s.Peakcurrent,
+                     Icheight = s.Icheight,
+                     Sensor = s.Sensor,
+                     Icmulti = s.Icmulti,
+                     Cgmulti = s.Cgmulti,
+                 }
+             ).ToListAsync();
+            else
+            return await DbContext.Flashes.Where(t => t.Ltype != 9 && initial <= t.IdDateNavigation.Date1 && t.IdDateNavigation.Date1 <= final && peak[0] <= t.Peakcurrent && t.Peakcurrent <= peak[1] && t.Ltype == type)
                 .Select(
                 s => new Flash
                 {

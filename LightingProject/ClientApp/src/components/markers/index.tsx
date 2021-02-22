@@ -3,7 +3,7 @@ import Page from './page'
 
 
 
-class Maps extends Component {
+class Markers extends Component {
     
 
     
@@ -15,4 +15,4 @@ class Maps extends Component {
     }
 }
 
-export default Maps;
+export default Markers;

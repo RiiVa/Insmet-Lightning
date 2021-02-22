@@ -22,6 +22,7 @@
     "react-dom": "^16.14.0",
     "react-leaflet": "^3.0.0",
     "react-leaflet-kml": "^2.0.2",
+    "react-leaflet-markercluster": "^3.0.0-rc1",
     "react-redux": "^7.2.2",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
