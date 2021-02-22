@@ -30,6 +30,7 @@ namespace LightingProject
                  .Select(
                  s => new Flash
                  {
+                     Id = s.Id,
                      IdDateNavigation = s.IdDateNavigation,
                      Ltype = s.Ltype,
                      Latitude = s.Latitude,
@@ -46,6 +47,7 @@ namespace LightingProject
                 .Select(
                 s => new Flash
                 {
+                    Id = s.Id,
                     IdDateNavigation = s.IdDateNavigation,
                     Ltype = s.Ltype,
                     Latitude = s.Latitude,
@@ -68,10 +70,12 @@ namespace LightingProject
             //    Ltime = s.Ltime,
             //}).ToListAsync();
             //return null;
-            List<Flash> lists = await DbContext.Flashes.Where(t => t.Ltype != 9 && initial <= t.IdDateNavigation.Date1 && t.IdDateNavigation.Date1 <= final && t.Ltype <= type)
+            if(type ==2)
+                return await DbContext.Flashes.Where(t => t.Ltype != 9 && initial <= t.IdDateNavigation.Date1 && t.IdDateNavigation.Date1 <= final && t.Ltype <= type)
                             .Select(
                             s => new Flash
                             {
+                                Id = s.Id,
                                 IdDateNavigation = s.IdDateNavigation,
                                 Ltype = s.Ltype,
                                 Latitude = s.Latitude,
@@ -83,7 +87,23 @@ namespace LightingProject
                                 Cgmulti = s.Cgmulti,
                             }
                         ).ToListAsync();
-            return lists;
+            else
+                return await DbContext.Flashes.Where(t => t.Ltype != 9 && initial <= t.IdDateNavigation.Date1 && t.IdDateNavigation.Date1 <= final && t.Ltype == type)
+                            .Select(
+                            s => new Flash
+                            {
+                                Id = s.Id,
+                                IdDateNavigation = s.IdDateNavigation,
+                                Ltype = s.Ltype,
+                                Latitude = s.Latitude,
+                                Longitude = s.Longitude,
+                                Peakcurrent = s.Peakcurrent,
+                                Icheight = s.Icheight,
+                                Sensor = s.Sensor,
+                                Icmulti = s.Icmulti,
+                                Cgmulti = s.Cgmulti,
+                            }
+                        ).ToListAsync();
         }
     }
     }

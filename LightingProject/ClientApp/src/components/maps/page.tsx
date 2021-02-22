@@ -181,36 +181,43 @@ function Page() {
                 center={defaultLatLng}
                 zoom={zoom}>
                 <LayersControl position="topright">
-                {/* <LayersControl.BaseLayer checked name="Local Map"> */}
+                <LayersControl.BaseLayer checked name="Storage Local Map">
                 <TileLayer
                     // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     url='weatherforecast/{z}/{x}/{y}'
 
                     />
-                {/* </LayersControl.BaseLayer>   */}
+                </LayersControl.BaseLayer>  
+                <LayersControl.BaseLayer name="Internet Map">
+                <TileLayer
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    // url='weatherforecast/{z}/{x}/{y}'
 
-                {/* <LayersControl.Overlay checked name="Line">
-                {kmlline && <ReactLeafletKml kml={kmlline} />}
-                </LayersControl.Overlay>
-                <LayersControl.Overlay checked name="Structure">
-                {kmlstruct && <ReactLeafletKml kml={kmlstruct} />}
-                </LayersControl.Overlay>
+                    />
+                </LayersControl.BaseLayer>
                 <LayersControl.Overlay checked name="Substations">
-                {kmlsub && <ReactLeafletKml kml={kmlsub} />}
-                </LayersControl.Overlay>  */}
+                  {kmlsub && <ReactLeafletKml kml={kmlsub} />}
+                </LayersControl.Overlay> 
+                <LayersControl.Overlay checked name="Line">
+                  {kmlline && <ReactLeafletKml kml={kmlline} />}
+                </LayersControl.Overlay>
+                <LayersControl.Overlay  name="Structure">
+                  {kmlstruct && <ReactLeafletKml kml={kmlstruct} />}
+                </LayersControl.Overlay>
+                
                  
                 {/* <Marker position={defaultLatLng}>
                 
                 </Marker> */}
                 {/* <MarkerClusterGroup disableClusteringAtZoom={11} spiderfyOnMaxZoom={false} maxClusterRadius={80}> */}
-                {/* <LayersControl.Overlay checked name="Lightnings Data">
+                 <LayersControl.Overlay name="Lightnings Data">
                 
+                 <MyMarker/>
 
-
-                </LayersControl.Overlay> */}
+                </LayersControl.Overlay> 
                 </LayersControl> 
                 
-                <MyMarker/>
+                
 
 
                 {/* <Marker position={defaultLatLng}  >

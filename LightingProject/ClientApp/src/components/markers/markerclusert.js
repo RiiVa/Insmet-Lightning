@@ -5,7 +5,7 @@ require('react-leaflet-markercluster/dist/styles.min.css');
 export default function markersClusters()
     {
         return (
-            <MarkerClusterGroup>
+            <MarkerClusterGroup disableClusteringAtZoom={12} spiderfyOnMaxZoom={false} maxClusterRadius={80}>
                 <Markers/>
             </MarkerClusterGroup>
         );
