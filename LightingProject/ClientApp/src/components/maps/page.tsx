@@ -16,9 +16,10 @@ import L from 'leaflet';
 // import MarkerClusterGroup from 'react-leaflet-markercluster';
 
 import './styles.css'
-// import prueba from "../estructuras_220.json"
+// import prueba from ../estructuras_220.json"
 // import axios from 'axios'
 import ReactLeafletKml from "react-leaflet-kml";
+
 
 const drawerWidth = 240;
 
@@ -129,10 +130,10 @@ function Page() {
     const [kmlline, setKmlline] = React.useState<null | Document>();
     const [kmlstruct, setKmlstruct] = React.useState<null | Document>();
     const [kmlsub, setKmlsub] = React.useState<null | Document>();
-
+    
     React.useEffect(() => {
       fetch(
-        "subestaciones_220.kml"
+        "/weatherforecast/DataLayers/subestaciones_220.kml"
       )
         .then((res) => res.text())
         .then((kmlText) => {
@@ -143,7 +144,7 @@ function Page() {
     }, []);
     React.useEffect(() => {
       fetch(
-        "estructuras_220.kml"
+        "/weatherforecast/DataLayers/estructuras_220.kml"
       )
         .then((res) => res.text())
         .then((kmlText) => {
@@ -154,14 +155,19 @@ function Page() {
     }, []);
     React.useEffect(() => {
       fetch(
-        "lineas_220.kml"
+        "/weatherforecast/DataLayers/lineas_220.kml"
       )
-        .then((res) => res.text())
-        .then((kmlText) => {
-          const parser = new DOMParser();
-          const kml = parser.parseFromString(kmlText, "text/xml");
-          setKmlline(kml);
-        });
+        .then(
+          (res) => 
+          console.log(res)
+        
+        // res.text()
+        )
+        // .then((kmlText) => {
+        //   const parser = new DOMParser();
+        //   const kml = parser.parseFromString(kmlText, "text/xml");
+        //   setKmlline(kml);
+        // });
     }, []);
     // const {lightnings} = useSelector<LightningState, StateProps>((state: LightningState) => {
     //           return {
@@ -201,7 +207,7 @@ function Page() {
                 <LayersControl.Overlay checked name="Line">
                   {kmlline && <ReactLeafletKml kml={kmlline} />}
                 </LayersControl.Overlay>
-                <LayersControl.Overlay  name="Structure">
+                <LayersControl.Overlay checked name="Structure">
                   {kmlstruct && <ReactLeafletKml kml={kmlstruct} />}
                 </LayersControl.Overlay>
                 

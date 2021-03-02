@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Marker,Popup} from 'react-leaflet'
+import MyMarker from './marker'
 // import Container from '@material-ui/core/Container'
 
 
@@ -35,25 +35,8 @@ function Page() {
       <div>
       {
         lightnings.map((light: ILightning) => {
-        // console.log(light)
-        return <Marker position={[light.latitude,light.longitude]}  >
-        <Popup >
-            DateTime: {
-              light.idDateNavigation.date1
-            }
-            <br /> 
-            Type: {
-              (light.ltype == 0)? 'cg' : 'ic'
-            }
-            <br /> 
-            Peak Current: {
-              light.peakcurrent
-            }<br /> 
-            Sensors: {
-              light.sensor
-            }
-         </Popup>
-        </Marker>
+        console.log(light)
+        return <MyMarker light = {light as ILightning} />
 
       })}
       </div>

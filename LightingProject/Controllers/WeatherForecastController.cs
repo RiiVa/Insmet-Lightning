@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net.NetworkInformation;
+
 
 namespace LightingProject.Controllers
 {
@@ -30,24 +32,37 @@ namespace LightingProject.Controllers
             byte[] imageData = _tileReader.GetImageData(x, y, z);
             return File(imageData, "image/png");
         }
+        [HttpGet("DataLayers/{name}")]
+        public async Task<IActionResult> DataLayer(string name)
+        {
+            string result = "Db/une/" + name;
+            return  PhysicalFile(result,"file/kml");
+            //return Ok();
+            
+        }
         [HttpPost("Light")]
         public async Task<IActionResult> Light([FromForm] DateTime init,[FromForm] DateTime end, [FromForm] int[] peak, [FromForm] int type)
         {
-            if (init == null || end == null || peak == null || type == null)
-            {
-                return Ok();
-            }
             
             List<Flash> list ;
-            
+            Ping pings = new Ping();
+            if(pings.Send("10.0.4.117", 1000).Status != IPStatus.Success) {
+                return StatusCode(408);
+            }
+            try
+            {
                 if (peak[0] == 0 && peak[1] == 0)
                     list = await _lightservice.GetLightning(init, end, type);
                 else list = await _lightservice.GetLightning(init, end, peak, type);
                 return Ok(list);
-            
-            
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
 
-            
+
+
         }
         //[HttpPost("Light")]
         //public async Task<IActionResult> Light([FromForm] DateTime init, [FromForm] DateTime end, [FromForm] int type)

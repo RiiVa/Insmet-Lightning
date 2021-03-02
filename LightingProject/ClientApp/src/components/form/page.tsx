@@ -121,9 +121,14 @@ function Page(  ) {
       if (ic)formdata.append('type', '1'  ) ;}
       axios.post('/weatherforecast/Light',  formdata )
       .then(res => {
-        console.log(res);
+        // console.log(res);
+        if(res.status === 500){
+          alert('Connection Alert')
+        }
+        else{
         console.log(res.data as ILightning[])
         rootDispatcher.filterLight(res.data as ILightning[])
+        }
       })
     }
     return (
