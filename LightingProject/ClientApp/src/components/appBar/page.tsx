@@ -10,6 +10,9 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
+import Button from '@material-ui/core/Button';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+
 import MenuIcon from '@material-ui/icons/Menu';
 
 import List from '@material-ui/core/List';
@@ -19,7 +22,13 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 // import AccountCircle from '@material-ui/icons/AccountCircle';
 import './style.css';
+import LiveTvIcon from '@material-ui/icons/LiveTv';
 
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
@@ -108,7 +117,7 @@ function Page() {
 
     const classes = useStyles();
     
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -121,7 +130,7 @@ function Page() {
     return (
         <React.Fragment>
         <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)} >
-            <Toolbar className= "appBar">
+            <Toolbar className= {classes.toolbar}>
             <IconButton
             edge="start"
             color="inherit"
@@ -129,12 +138,19 @@ function Page() {
             onClick={handleDrawerOpen}
             className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
           >
-            <MenuIcon />
+            <LiveTvIcon />
           </IconButton>
-                <Typography variant="h6" color= "inherit" noWrap >
+                <Typography variant="h6" color= "inherit" noWrap className={classes.title}>
                     LightningInsmet
                 </Typography>
+          <IconButton color="inherit" 
+          // onClick={}
+          >
+          
+            <MenuIcon />
+          </IconButton>
             </Toolbar>
+
         </AppBar>
 
         <Drawer

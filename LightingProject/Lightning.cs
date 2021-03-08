@@ -23,6 +23,9 @@ namespace LightingProject
         {
             this.DbContext = DbContext;
         }
+
+        #region
+        //Flash Search
         public async Task<List<Flash>> GetLightning(DateTime initial, DateTime final, int[] peak, int type)
         {
             if(type ==2 )
@@ -105,6 +108,8 @@ namespace LightingProject
                             }
                         ).ToListAsync();
         }
+
+        #endregion
     }
-    }
+}
 

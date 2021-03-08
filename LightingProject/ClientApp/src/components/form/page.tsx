@@ -7,9 +7,10 @@
 
 
 
-import React, { Fragment , useState}  from 'react';
+import React, { Fragment , useState,useEffect}  from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import TextField from '@material-ui/core/TextField';
+import moment from 'moment'
 // import Typography from '@material-ui/core/Typography';
 // import Slider from '@material-ui/core/Slider';
 // import Grid from '@material-ui/core/Grid';
@@ -41,9 +42,9 @@ const useStyles = makeStyles((theme: Theme) =>
     
   }),
 );
-type Props = {
-  filterLight: (filter : IFilterLightning | any) => void
-} 
+// type Props = {
+//   filterLight: (filter : IFilterLightning | any) => void
+// } 
 
 // function valuetext(value: number) {
 //   return `${value}`;
@@ -51,7 +52,7 @@ type Props = {
 
 function Page(  ) {
     const classes = useStyles();
-    const [filter,setFilter] = useState<IFilterLightning | {}>()
+    
     
     
     const [peakInit, setPeakInit] = React.useState('');
@@ -82,36 +83,23 @@ function Page(  ) {
       setPeakEnd(event.target.value);
     };
 
-    const handleFilterData = (e: React.ChangeEvent<HTMLInputElement>)=>{
-      console.log(filter)
-      setFilter({
-        ...filter,[e.currentTarget.id]: e.currentTarget.value,
-      })
-    }
-    const validation = () => {
-      if (filter === undefined) return true;
-      if ( (filter as IFilterLightning).init === undefined || (filter as IFilterLightning).end === undefined) return true;
-      
-      if( Date.parse((filter as IFilterLightning).init)>= Date.parse((filter as IFilterLightning).end) )return true;
-      
-      if (!error ) return true; 
-      return false;
-    }
+    
     const dispatch = useDispatch();
     const rootDispatcher = new RootDispatcher(dispatch);
-
-    const filterLightning = (e:React.FormEvent) =>{
-      e.preventDefault()
+    const interval = 60000
+    const delay = 61000
+    const timerAction = () =>{
+      // e.preventDefault()
       // console.log(filter)
       const formdata = new FormData()
-      const filter2 = filter as IFilterLightning
+      
       console.log(peakInit,"peakInit");
       console.log(peakEnd,"peakEnd");
       console.log(cg,"cg");
       console.log(ic,"ic");
       
-      formdata.append('init', filter2.init )
-      formdata.append('end',filter2.end )
+      formdata.append('init', moment().subtract(-1,'minutes').format('YYYY[-]MM[-]DD[T]HH[:]MM') )
+      formdata.append('end', moment().format('YYYY[-]MM[-]DD[T]HH[:]MM') )
      
       formdata.append('peak',  (peakInit === '')? '0':peakInit  )
       formdata.append('peak', (peakEnd === '')?'0':peakEnd );
@@ -131,40 +119,40 @@ function Page(  ) {
         }
       })
     }
+    useEffect(() => {
+      let intervalId:NodeJS.Timeout;
+      console.log("useEffect trigger", delay, interval);
+  
+      const timerId = setTimeout(() => {
+        console.log("-- exec time --");
+        timerAction();
+  
+        intervalId = setInterval(() => {
+          console.log(" -- exec interval --");
+          timerAction();
+        }, interval);
+  
+        return () => {
+          console.log("clearing interval");
+          clearInterval(intervalId);
+        };
+      }, delay);
+  
+      return () => {
+        console.log("clearing-both");
+        clearInterval(intervalId);
+        clearTimeout(timerId);
+      };
+    }, [delay, interval]);
+
     return (
        <Fragment>
-         <form onSubmit={filterLightning} className={classes.container} noValidate>
+         <form className={classes.container} noValidate>
            <ListItem className={classes.just}>
             {/* <ListItemIcon>
                 // <DashboardIcon />
             </ListItemIcon> */}
            
-            <TextField
-            id="init"
-            label="Initial Datetime"
-            type="datetime-local"
-            onChange={handleFilterData}
-            className={classes.textField}
-            
-            InputLabelProps={{
-            shrink: true,
-            }}
-            />
-            {/* <ListItemIcon>
-                <DashboardIcon />
-            </ListItemIcon> */}
-            </ListItem>
-           <ListItem className={classes.just}>
-            <TextField
-                id="end"
-                label="End Datetime"
-                type="datetime-local"
-                className={classes.textField}
-                onChange={handleFilterData}
-                InputLabelProps={{
-                shrink: true,
-                }}
-            />
             </ListItem>
             {/* <ListItem className={classes.just}>
               <Slider
@@ -196,12 +184,6 @@ function Page(  ) {
               </FormGroup>
             </ListItem>
 
-            <ListItem className={classes.just}>
-            <Button type="submit" disabled={validation()} variant="contained" size="small" color="primary" >
-            Filter 
-            </Button>
-            
-            </ListItem>
             </form>
             
         </Fragment>

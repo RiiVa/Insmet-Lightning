@@ -6,6 +6,7 @@ import Page from './page'
 
 class liveMaps extends Component {
     
+    
     render() {
         return (
             <Page />

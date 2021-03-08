@@ -46,20 +46,20 @@ namespace LightingProject.Controllers
             
             List<Flash> list ;
             Ping pings = new Ping();
-            if(pings.Send("10.0.4.117", 1000).Status != IPStatus.Success) {
-                return StatusCode(408);
-            }
-            try
-            {
-                if (peak[0] == 0 && peak[1] == 0)
+            //if(pings.Send("10.0.4.117", 1000).Status != IPStatus.Success) {
+            //    return StatusCode(408);
+            //}
+            //try
+            //{
+         if (peak[0] == 0 && peak[1] == 0)
                     list = await _lightservice.GetLightning(init, end, type);
                 else list = await _lightservice.GetLightning(init, end, peak, type);
                 return Ok(list);
-            }
-            catch
-            {
-                return StatusCode(500);
-            }
+            //}
+            //catch
+            //{
+            //    return StatusCode(500);
+            //}
 
 
 
