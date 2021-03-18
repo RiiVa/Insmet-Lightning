@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,8 +36,23 @@ namespace LightingProject.Controllers
         [HttpGet("DataLayers/{name}")]
         public async Task<IActionResult> DataLayer(string name)
         {
-            string result = "Db/une/" + name;
-            return  PhysicalFile(result,"file/kml");
+            try
+            {
+                string path = "Db/une/" + name;
+                //StreamReader file = new StreamReader(result);
+                FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read);
+                FileStreamResult result2 = new FileStreamResult(file, "text/plain");
+                return result2;
+            }
+            catch (Exception ex)
+            {
+
+                return Ok();
+            }
+            
+
+
+            //return  PhysicalFile(result,"file/kml");
             //return Ok();
             
         }
@@ -49,17 +65,17 @@ namespace LightingProject.Controllers
             //if(pings.Send("10.0.4.117", 1000).Status != IPStatus.Success) {
             //    return StatusCode(408);
             //}
-            //try
-            //{
-         if (peak[0] == 0 && peak[1] == 0)
+            try
+            {
+                if (peak[0] == 0 && peak[1] == 0)
                     list = await _lightservice.GetLightning(init, end, type);
                 else list = await _lightservice.GetLightning(init, end, peak, type);
                 return Ok(list);
-            //}
-            //catch
-            //{
-            //    return StatusCode(500);
-            //}
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500);
+            }
 
 
 

@@ -20,9 +20,11 @@ import {RootDispatcher} from '../../redux/actions/actionCreators'
 
 import Button from '@material-ui/core/Button';
 import axios from 'axios'
-import { FormControlLabel } from '@material-ui/core';
+import { FormControl, FormControlLabel, FormLabel, IconButton, Radio, RadioGroup, Switch } from '@material-ui/core';
 import { FormGroup } from 'reactstrap';
 import { Checkbox } from '@material-ui/core';
+import { PlaylistPlay } from '@material-ui/icons';
+import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
@@ -63,7 +65,11 @@ function Page(  ) {
     });
     const { ic, cg } = state;
     const error = ic || cg;
-    
+    const [selectedValue, setSelectedValue] = React.useState('a');
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedValue(event.target.value);
+    };
     // borrar cuando se le muestre a osa
 
     // const [peakCurrent, setPeakC] = React.useState<number[]>([-10000, 10000]);
@@ -87,7 +93,7 @@ function Page(  ) {
     const dispatch = useDispatch();
     const rootDispatcher = new RootDispatcher(dispatch);
     const interval = 60000
-    const delay = 61000
+    const delay = 70000
     const timerAction = () =>{
       // e.preventDefault()
       // console.log(filter)
@@ -97,7 +103,7 @@ function Page(  ) {
       console.log(peakEnd,"peakEnd");
       console.log(cg,"cg");
       console.log(ic,"ic");
-      
+      console.log(moment().format('YYYY[-]MM[-]DD[T]HH[:]MM[:]SS'),'time')
       formdata.append('init', moment().subtract(-1,'minutes').format('YYYY[-]MM[-]DD[T]HH[:]MM') )
       formdata.append('end', moment().format('YYYY[-]MM[-]DD[T]HH[:]MM') )
      
@@ -173,17 +179,56 @@ function Page(  ) {
             <ListItem className={classes.just}>
               <FormGroup>
                 <FormControlLabel
-                  control={<Checkbox checked={ic} onChange={handleTypeFlash('ic')} value="ic" color='primary'/>}
+                  // control={<Checkbox checked={ic} onChange={handleTypeFlash('ic')} value="ic" color='primary'/>}
+                  control={<Switch checked={ic} onChange={handleTypeFlash('ic')} name="checkedA" color="primary"/>}
                   label="IC"
                 />
                 <FormControlLabel
-                  control={<Checkbox checked={cg} onChange={handleTypeFlash('cg')} value="cg" color='primary' />}
+                  // control={<Checkbox checked={cg} onChange={handleTypeFlash('cg')} value="cg" color='primary' />}
+                  control={<Switch checked={cg} onChange={handleTypeFlash('cg')} name="checkedA" color="primary"/>}
                   label="CG"
                 />
                 
               </FormGroup>
             </ListItem>
-
+            <ListItem className={classes.just}>
+            <FormControl component="fieldset">
+              
+              <RadioGroup row aria-label="position" name="position" defaultValue="1">
+              <FormControlLabel
+                value="1"
+                control={<Radio color="primary" />}
+                label="1 min"
+                
+              />
+              <FormControlLabel
+                value="2"
+                control={<Radio color="primary" />}
+                label="15 min"
+                
+              />
+              <FormControlLabel
+              value="3"
+              control={<Radio color="primary" />}
+              label="30 min"
+              
+            />
+            <FormControlLabel
+            value="4"
+            control={<Radio color="primary" />}
+            label="60 min"
+            
+            />
+              </RadioGroup>
+              </FormControl>
+              </ListItem>
+              <ListItem className={classes.just}>
+              
+              
+              <IconButton color='primary' >
+                <PlayCircleFilledIcon/>
+              </IconButton>
+            </ListItem>
             </form>
             
         </Fragment>

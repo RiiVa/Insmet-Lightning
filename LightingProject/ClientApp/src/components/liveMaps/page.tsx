@@ -133,7 +133,7 @@ function Page() {
     
     React.useEffect(() => {
       fetch(
-        "/weatherforecast/DataLayers/subestaciones_220.kml"
+        "weatherforecast/DataLayers/subestaciones_220.kml"
       )
         .then((res) => res.text())
         .then((kmlText) => {
@@ -144,7 +144,7 @@ function Page() {
     }, []);
     React.useEffect(() => {
       fetch(
-        "/weatherforecast/DataLayers/estructuras_220.kml"
+        "weatherforecast/DataLayers/estructuras_220.kml"
       )
         .then((res) => res.text())
         .then((kmlText) => {
@@ -155,19 +155,19 @@ function Page() {
     }, []);
     React.useEffect(() => {
       fetch(
-        "/weatherforecast/DataLayers/lineas_220.kml"
+        "weatherforecast/DataLayers/lineas_220.kml"
       )
         .then(
           (res) => 
-          console.log(res)
+          // console.log(res)
         
-        // res.text()
+        res.text()
         )
-        // .then((kmlText) => {
-        //   const parser = new DOMParser();
-        //   const kml = parser.parseFromString(kmlText, "text/xml");
-        //   setKmlline(kml);
-        // });
+        .then((kmlText) => {
+          const parser = new DOMParser();
+          const kml = parser.parseFromString(kmlText, "text/xml");
+          setKmlline(kml);
+        });
     }, []);
     // const {lightnings} = useSelector<LightningState, StateProps>((state: LightningState) => {
     //           return {
@@ -185,7 +185,11 @@ function Page() {
             
             <MapContainer id='mapId'
                 center={defaultLatLng}
-                zoom={zoom}>
+                zoom={zoom}
+                minZoom={6}
+                maxZoom={15}
+                >
+                  
                 
                 <LayersControl position="topright">
                 <LayersControl.BaseLayer checked name="Storage Local Map">
@@ -202,7 +206,7 @@ function Page() {
 
                     />
                 </LayersControl.BaseLayer>
-                {/* <LayersControl.Overlay checked name="Substations">
+                <LayersControl.Overlay checked name="Substations">
                   {kmlsub && <ReactLeafletKml kml={kmlsub} />}
                 </LayersControl.Overlay> 
                 <LayersControl.Overlay checked name="Line">
@@ -210,7 +214,7 @@ function Page() {
                 </LayersControl.Overlay>
                 <LayersControl.Overlay checked name="Structure">
                   {kmlstruct && <ReactLeafletKml kml={kmlstruct} />}
-                </LayersControl.Overlay> */}
+                </LayersControl.Overlay>
                 
                  
                 {/* <Marker position={defaultLatLng}>
@@ -222,6 +226,11 @@ function Page() {
                  <MyMarker/>
 
                 </LayersControl.Overlay> 
+                {/* <LayersControl.Overlay name="Lightnings Data ">
+                
+                <MyMarker/>
+
+               </LayersControl.Overlay>  */}
                 </LayersControl> 
                 
                 

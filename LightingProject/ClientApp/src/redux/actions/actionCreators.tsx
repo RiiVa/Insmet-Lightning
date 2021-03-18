@@ -1,4 +1,4 @@
-import {FILTER_LIGHTNING} from "./actionTypes"
+// import {FILTER_LIGHTNING} from "./actionTypes"
 import {Dispatch} from 'redux'
 import {DispatchAction, ActionType} from '../reducers/reducerLightnings'
 

@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 
 import clsx from 'clsx';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer'
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
@@ -29,7 +29,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
+import Menu from '@material-ui/icons/Menu';
+import { ListItem, TextField } from '@material-ui/core';
+import HistoryIcon from '@material-ui/icons/History';
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
     root: {
@@ -109,11 +111,49 @@ const useStyles = makeStyles(theme => ({
     fixedHeight: {
       height: 240,
     },
+    textField: {
+      //   marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        width: 215,
+      },
+      just:{
+          justifyContent: 'center',
+          paddingLeft: 8,
+          paddingRight:8,
+      },
   }));
   
-
+  const StyledMenu = withStyles({
+    paper: {
+      border: '1px solid #d3d4d5',
+    },
+  })((props:any) => (
+    <Menu
+      elevation={0}
+      getContentAnchorEl={null}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'center',
+      }}
+      {...props}
+    />
+  ));
 
 function Page() {
+
+  const [openDialog, setOpenDialog] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpenDialog(true);
+  };
+
+  const handleClose = () => {
+    setOpenDialog(false);
+  };
 
     const classes = useStyles();
     
@@ -143,12 +183,63 @@ function Page() {
                 <Typography variant="h6" color= "inherit" noWrap className={classes.title}>
                     LightningInsmet
                 </Typography>
-          <IconButton color="inherit" 
-          // onClick={}
+          <div>
+          <IconButton 
+          color="inherit"
+            onClick={handleClickOpen}
           >
           
-            <MenuIcon />
+            <HistoryIcon />
           </IconButton>
+          <Dialog open={openDialog} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Select params to find lightings data
+          </DialogContentText>
+          
+            {/* <ListItemIcon>
+                // <DashboardIcon />
+            </ListItemIcon> */}
+           
+            <TextField
+            id="init"
+            label="Initial Datetime"
+            type="datetime-local"
+            // onChange={handleFilterData}
+            className={classes.textField}
+            
+            InputLabelProps={{
+            shrink: true,
+            }}
+            />
+            {/* <ListItemIcon>
+                <DashboardIcon />
+            </ListItemIcon> */}
+            
+            <TextField
+                id="end"
+                label="End Datetime"
+                type="datetime-local"
+                className={classes.textField}
+                // onChange={handleFilterData}
+                InputLabelProps={{
+                shrink: true,
+                }}
+            />
+            
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleClose} color="primary">
+            Subscribe
+          </Button>
+        </DialogActions>
+      </Dialog>
+          
+        </div>
             </Toolbar>
 
         </AppBar>

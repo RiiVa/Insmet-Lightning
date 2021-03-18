@@ -23,9 +23,9 @@ namespace LightingProject
         {
             this.DbContext = DbContext;
         }
-
-        #region
         //Flash Search
+        #region
+
         public async Task<List<Flash>> GetLightning(DateTime initial, DateTime final, int[] peak, int type)
         {
             if(type ==2 )
@@ -105,6 +105,84 @@ namespace LightingProject
                                 Sensor = s.Sensor,
                                 Icmulti = s.Icmulti,
                                 Cgmulti = s.Cgmulti,
+                            }
+                        ).ToListAsync();
+        }
+
+        #endregion
+        //Pulse Search
+        #region
+        public async Task<List<Pulse>> GetLightningPulse(DateTime initial, DateTime final, int[] peak, int type)
+        {
+            if (type == 2)
+                return await DbContext.Pulses.Where(t => t.Ptype != 9 && initial <= t.IdDateNavigation.Date1 && t.IdDateNavigation.Date1 <= final && peak[0] <= t.Peakcurrent && t.Peakcurrent <= peak[1] && t.Ptype <= type)
+                 .Select(
+                 s => new Pulse
+                 {
+                     Id = s.Id,
+                     IdDateNavigation = s.IdDateNavigation,
+                     Ptype = s.Ptype,
+                     Latitude = s.Latitude,
+                     Longitude = s.Longitude,
+                     Peakcurrent = s.Peakcurrent,
+                     Icheight = s.Icheight,
+                     Sensor = s.Sensor,
+                 }
+             ).ToListAsync();
+            else
+                return await DbContext.Pulses.Where(t => t.Ptype != 9 && initial <= t.IdDateNavigation.Date1 && t.IdDateNavigation.Date1 <= final && peak[0] <= t.Peakcurrent && t.Peakcurrent <= peak[1] && t.Ptype == type)
+                    .Select(
+                    s => new Pulse
+                    {
+                        Id = s.Id,
+                        IdDateNavigation = s.IdDateNavigation,
+                        Ptype = s.Ptype,
+                        Latitude = s.Latitude,
+                        Longitude = s.Longitude,
+                        Peakcurrent = s.Peakcurrent,
+                        Icheight = s.Icheight,
+                        Sensor = s.Sensor,
+                    }
+                ).ToListAsync();
+        }
+        public async Task<List<Pulse>> GetLightningPulse(DateTime initial, DateTime final, int type)
+        {
+
+            //List<Flash> list_dates_id = await DbContext.Dates.Where(  t =>  initial <= t.Date1 && t.Date1 <= final).Select(s =>
+            //new Date
+            //{
+            //    id = s.id,
+            //    Ltime = s.Ltime,
+            //}).ToListAsync();
+            //return null;
+            if (type == 2)
+                return await DbContext.Pulses.Where(t => t.Ptype != 9 && initial <= t.IdDateNavigation.Date1 && t.IdDateNavigation.Date1 <= final && t.Ptype <= type)
+                            .Select(
+                            s => new Pulse
+                            {
+                                Id = s.Id,
+                                IdDateNavigation = s.IdDateNavigation,
+                                Ptype = s.Ptype,
+                                Latitude = s.Latitude,
+                                Longitude = s.Longitude,
+                                Peakcurrent = s.Peakcurrent,
+                                Icheight = s.Icheight,
+                                Sensor = s.Sensor,
+                            }
+                        ).ToListAsync();
+            else
+                return await DbContext.Pulses.Where(t => t.Ptype != 9 && initial <= t.IdDateNavigation.Date1 && t.IdDateNavigation.Date1 <= final && t.Ptype == type)
+                            .Select(
+                            s => new Pulse
+                            {
+                                Id = s.Id,
+                                IdDateNavigation = s.IdDateNavigation,
+                                Ptype = s.Ptype,
+                                Latitude = s.Latitude,
+                                Longitude = s.Longitude,
+                                Peakcurrent = s.Peakcurrent,
+                                Icheight = s.Icheight,
+                                Sensor = s.Sensor,
                             }
                         ).ToListAsync();
         }
