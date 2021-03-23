@@ -15,7 +15,7 @@ import moment from 'moment'
 // import Slider from '@material-ui/core/Slider';
 // import Grid from '@material-ui/core/Grid';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {RootDispatcher} from '../../redux/actions/actionCreators'
 
 import Button from '@material-ui/core/Button';
@@ -25,6 +25,9 @@ import { FormGroup } from 'reactstrap';
 import { Checkbox } from '@material-ui/core';
 import { PlaylistPlay } from '@material-ui/icons';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
+import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled'
+import { number } from 'prop-types';
+import { initialState } from '../../redux/reducers/reducerLightnings';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
@@ -65,7 +68,7 @@ function Page(  ) {
     });
     const { ic, cg } = state;
     const error = ic || cg;
-    const [selectedValue, setSelectedValue] = React.useState('a');
+    const [selectedValue, setSelectedValue] = React.useState('1');
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value);
@@ -92,8 +95,30 @@ function Page(  ) {
     
     const dispatch = useDispatch();
     const rootDispatcher = new RootDispatcher(dispatch);
-    const interval = 60000
-    const delay = 70000
+    const {live,formLive} = useSelector<LightningState, StatePropsLive>((state: LightningState) => {
+      return {
+          live : state.live,
+          formLive : state.formLive,
+      }
+  });
+    const interval = formLive.timer
+    const delay = formLive.timer
+
+    const formLiveFunction = (e:React.FormEvent) =>{
+      e.preventDefault()
+      const formLive: FormLive = {
+        timer:  parseInt(selectedValue) * 60000,
+        peakCurrent : [parseInt(peakInit),parseInt(peakEnd)],
+        cg: cg,
+        ic: ic,
+        pulse:true,
+        flash:true,
+        
+      }
+      rootDispatcher.formLive(formLive)
+
+    }
+
     const timerAction = () =>{
       // e.preventDefault()
       // console.log(filter)
@@ -103,10 +128,15 @@ function Page(  ) {
       console.log(peakEnd,"peakEnd");
       console.log(cg,"cg");
       console.log(ic,"ic");
-      console.log(moment().format('YYYY[-]MM[-]DD[T]HH[:]MM[:]SS'),'time')
-      formdata.append('init', moment().subtract(-1,'minutes').format('YYYY[-]MM[-]DD[T]HH[:]MM') )
-      formdata.append('end', moment().format('YYYY[-]MM[-]DD[T]HH[:]MM') )
-     
+      // console.log(moment().format())
+      // console.log(moment('2021-03-19 22:00').format('YYYY[-]MM[-]DD[T]HH[:]mm'))
+      // const testMeteoro = moment('2021-03-19 22:00')
+      // const testMeteoroEnd = moment('2021-03-19 22:10')
+      console.log(moment().subtract(formLive.timer/1000,'seconds').format('YYYY[-]MM[-]DD[T]HH[:]mm[:]ss'))
+      formdata.append('init', moment().subtract(-1,'minutes').format('YYYY[-]MM[-]DD[T]HH[:]mm') )
+      formdata.append('end', moment().format('YYYY[-]MM[-]DD[T]HH[:]mm') )
+    //  formdata.append('init',testMeteoro.format('YYYY[-]MM[-]DD[T]HH[:]mm'))
+    //  formdata.append('end',testMeteoroEnd.format('YYYY[-]MM[-]DD[T]HH[:]mm'))
       formdata.append('peak',  (peakInit === '')? '0':peakInit  )
       formdata.append('peak', (peakEnd === '')?'0':peakEnd );
       
@@ -125,17 +155,22 @@ function Page(  ) {
         }
       })
     }
+
     useEffect(() => {
       let intervalId:NodeJS.Timeout;
       console.log("useEffect trigger", delay, interval);
   
       const timerId = setTimeout(() => {
         console.log("-- exec time --");
-        timerAction();
+        console.log(moment().format())
+        if(live)
+          timerAction();
   
         intervalId = setInterval(() => {
           console.log(" -- exec interval --");
-          timerAction();
+          console.log(moment().format())
+          if(live)
+            timerAction();
         }, interval);
   
         return () => {
@@ -149,11 +184,11 @@ function Page(  ) {
         clearInterval(intervalId);
         clearTimeout(timerId);
       };
-    }, [delay, interval]);
+      }, [delay, interval]);
 
     return (
        <Fragment>
-         <form className={classes.container} noValidate>
+         <form onSubmit={formLiveFunction} className={classes.container} noValidate>
            <ListItem className={classes.just}>
             {/* <ListItemIcon>
                 // <DashboardIcon />
@@ -194,7 +229,7 @@ function Page(  ) {
             <ListItem className={classes.just}>
             <FormControl component="fieldset">
               
-              <RadioGroup row aria-label="position" name="position" defaultValue="1">
+              <RadioGroup row aria-label="position" value={selectedValue} onChange={handleChange} name="position" defaultValue="1">
               <FormControlLabel
                 value="1"
                 control={<Radio color="primary" />}
@@ -202,19 +237,19 @@ function Page(  ) {
                 
               />
               <FormControlLabel
-                value="2"
+                value="15"
                 control={<Radio color="primary" />}
                 label="15 min"
                 
               />
               <FormControlLabel
-              value="3"
+              value="30"
               control={<Radio color="primary" />}
               label="30 min"
               
             />
             <FormControlLabel
-            value="4"
+            value="60"
             control={<Radio color="primary" />}
             label="60 min"
             
@@ -225,9 +260,15 @@ function Page(  ) {
               <ListItem className={classes.just}>
               
               
-              <IconButton color='primary' >
-                <PlayCircleFilledIcon/>
-              </IconButton>
+              {/* <IconButton  */}
+              <Button
+                type= 'submit'
+                color='primary' >
+                  {/* {(live)?<PauseCircleFilledIcon/>: */}
+                  <PlayCircleFilledIcon/>
+                  {/* } */}
+                  </Button>
+              {/* </IconButton> */}
             </ListItem>
             </form>
             

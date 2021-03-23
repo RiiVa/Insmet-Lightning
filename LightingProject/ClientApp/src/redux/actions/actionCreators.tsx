@@ -15,4 +15,7 @@ export class RootDispatcher {
           this.dispatch = dispatch; 
       }
       filterLight = (lightnings: ILightning[]) => this.dispatch({type: ActionType.FilterLight, payload: {lightnings}});
+      changeLive = (live:boolean) => this.dispatch({type :ActionType.ChangeLive ,  payload:{live}})
+      formLive = (formLive: FormLive) => this.dispatch({type :ActionType.ChangeFormLive ,  payload:{formLive}})
+      formHistory = (formHistory: FormHistory) => this.dispatch({type :ActionType.ChangeFormHistory ,  payload:{formHistory}})
   }

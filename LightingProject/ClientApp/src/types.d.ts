@@ -9,6 +9,10 @@ type ClickHandlerParam = React.MouseEvent;
 interface StateProps {
     lightnings : ILightning[]
     }
+interface StatePropsLive{
+    live : boolean,
+    formLive : FormLive,
+}
 interface LDate{
     id:number
     date1:Date
@@ -30,8 +34,31 @@ interface ILightning{
 
 
  interface LightningState  {
-    lightnings : ILightning[] 
+    lightnings : ILightning[],
+    formHistory : FormHistory,
+    formLive : FormLive,
+    live : boolean
+
 }
+interface FormHistory{
+    end:string,
+    init : string,
+    peakCurrent : number[]
+    cg : boolean,
+    ic : boolean,
+    pulse : boolean,
+    flash : boolean,
+}
+
+interface FormLive{
+    peakCurrent : number[]
+    timer : number,
+    cg : boolean,
+    ic : boolean,
+    pulse : boolean,
+    flash : boolean,
+}
+
 type FilterLightningAction = {
     type: string,
     payload: LightningState,
