@@ -30,8 +30,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Menu from '@material-ui/icons/Menu';
-import { ListItem, TextField } from '@material-ui/core';
+import { Checkbox, CssBaseline, FormControlLabel, FormGroup, ListItem, TextField } from '@material-ui/core';
 import HistoryIcon from '@material-ui/icons/History';
+import moment from 'moment';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { RootDispatcher } from '../../redux/actions/actionCreators';
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
     root: {
@@ -117,10 +121,11 @@ const useStyles = makeStyles(theme => ({
         width: 215,
       },
       just:{
-          justifyContent: 'center',
-          paddingLeft: 8,
-          paddingRight:8,
-      },
+        justifyContent: 'center',
+        paddingLeft: 8,
+        paddingRight:8,
+        flexDirection: 'row',
+    },
   }));
   
   const StyledMenu = withStyles({
@@ -144,14 +149,88 @@ const useStyles = makeStyles(theme => ({
   ));
 
 function Page() {
-
+  const [filter,setFilter] = React.useState<IFilterLightning | {}>()
   const [openDialog, setOpenDialog] = React.useState(false);
-
+  const [peakInit, setPeakInit] = React.useState('');
+    const [peakEnd, setPeakEnd] = React.useState('');
+    const [state, setState] = React.useState({
+      ic: true,
+      cg: true,
+    });
+    const { ic, cg } = state;
+    
+    const error = ic || cg;
+    const validation = () => {
+      if (filter === undefined) return true;
+      if ( (filter as IFilterLightning).init === undefined || (filter as IFilterLightning).end === undefined) return true;
+      
+      if( Date.parse((filter as IFilterLightning).init)>= Date.parse((filter as IFilterLightning).end) )return true;
+      
+      if (!error ) return true; 
+      return false;
+    }
+    const handleFilterData = (e: React.ChangeEvent<HTMLInputElement>)=>{
+      console.log(filter)
+      setFilter({
+        ...filter,[e.currentTarget.id]: e.currentTarget.value,
+      })
+    }
+    const handleTypeFlash = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setState({ ...state, [name]: event.target.checked });
+    };
+    
+    const handlePeakInit = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setPeakInit(event.target.value);
+    };
+    const handlePeakEnd = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setPeakEnd(event.target.value);
+    };
   const handleClickOpen = () => {
     setOpenDialog(true);
   };
 
   const handleClose = () => {
+    setOpenDialog(false);
+  };
+  const dispatch = useDispatch();
+  const rootDispatcher = new RootDispatcher(dispatch);
+
+  const handleHistory = (e:React.FormEvent) => {
+    e.preventDefault()
+      // console.log(filter)
+      const formdata = new FormData()
+      
+      console.log(peakInit,"peakInit");
+      console.log(peakEnd,"peakEnd");
+      console.log(cg,"cg");
+      console.log(ic,"ic");
+      // console.log(moment().format())
+      // console.log(moment('2021-03-19 22:00').format('YYYY[-]MM[-]DD[T]HH[:]mm'))
+      // const testMeteoro = moment('2021-03-19 22:00')
+      // const testMeteoroEnd = moment('2021-03-19 22:10')
+      // console.log(moment().subtract(formLive.timer/1000,'seconds').format('YYYY[-]MM[-]DD[T]HH[:]mm[:]ss'))
+      // formdata.append('init', moment().subtract(-1,'minutes').format('YYYY[-]MM[-]DD[T]HH[:]mm') )
+      // formdata.append('end', moment().format('YYYY[-]MM[-]DD[T]HH[:]mm') )
+     formdata.append('init',(filter as IFilterLightning).init)
+     formdata.append('end',(filter as IFilterLightning).end)
+      formdata.append('peak',  (peakInit === '')? '0':peakInit  )
+      formdata.append('peak', (peakEnd === '')?'0':peakEnd );
+      
+      if(cg && ic)formdata.append('type', '2'  ) ;
+      else{if (cg)formdata.append('type', '0'  ) ;
+      if (ic)formdata.append('type', '1'  ) ;}
+      axios.post('/weatherforecast/Light',  formdata )
+      .then(res => {
+        // console.log(res);
+        if(res.status === 500){
+          alert('Connection Alert')
+        }
+        else{
+        console.log(res.data as ILightning[])
+        rootDispatcher.filterLight(res.data as ILightning[])
+        }
+      })
+    rootDispatcher.changeLive(false)
     setOpenDialog(false);
   };
 
@@ -169,6 +248,7 @@ function Page() {
 
     return (
         <React.Fragment>
+          <CssBaseline/>
         <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)} >
             <Toolbar className= {classes.toolbar}>
             <IconButton
@@ -206,7 +286,7 @@ function Page() {
             id="init"
             label="Initial Datetime"
             type="datetime-local"
-            // onChange={handleFilterData}
+            onChange={handleFilterData}
             className={classes.textField}
             
             InputLabelProps={{
@@ -222,18 +302,34 @@ function Page() {
                 label="End Datetime"
                 type="datetime-local"
                 className={classes.textField}
-                // onChange={handleFilterData}
+                onChange={handleFilterData}
                 InputLabelProps={{
                 shrink: true,
                 }}
             />
-            
+            <ListItem >
+            <TextField id="peakInit" label="PeakInit" value={peakInit} onChange={handlePeakInit}/>
+            <TextField id="peakEnd" label="PeakEnd" value={peakEnd} onChange={handlePeakEnd}/>
+            </ListItem>
+            <ListItem className={classes.just}>
+              <FormGroup className={classes.just}>
+                <FormControlLabel
+                  control={<Checkbox checked={ic} onChange={handleTypeFlash('ic')} value="ic" color='primary'/>}
+                  label="IC"
+                />
+                <FormControlLabel
+                  control={<Checkbox checked={cg} onChange={handleTypeFlash('cg')} value="cg" color='primary' />}
+                  label="CG"
+                />
+                
+              </FormGroup>
+            </ListItem>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleHistory} disabled={validation()} color="primary">
             Subscribe
           </Button>
         </DialogActions>

@@ -96,7 +96,7 @@ function Page() {
       <div>
       {
         lightnings.map((light: ILightning) => {
-        console.log(light)
+        // console.log(light)
         return <MyMarker light = {light as ILightning} />
 
       })}

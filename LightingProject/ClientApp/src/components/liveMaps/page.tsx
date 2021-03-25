@@ -212,7 +212,7 @@ function Page() {
                 <LayersControl.Overlay checked name="Line">
                   {kmlline && <ReactLeafletKml kml={kmlline} />}
                 </LayersControl.Overlay>
-                <LayersControl.Overlay checked name="Structure">
+                <LayersControl.Overlay name="Structure">
                   {kmlstruct && <ReactLeafletKml kml={kmlstruct} />}
                 </LayersControl.Overlay>
                 
@@ -221,7 +221,7 @@ function Page() {
                 
                 </Marker> */}
                 {/* <MarkerClusterGroup disableClusteringAtZoom={11} spiderfyOnMaxZoom={false} maxClusterRadius={80}> */}
-                 <LayersControl.Overlay name="Lightnings Data">
+                 <LayersControl.Overlay checked name="Lightnings Data">
                 
                  <MyMarker/>
 

@@ -67,7 +67,11 @@ function Page(  ) {
       cg: true,
     });
     const { ic, cg } = state;
+    
     const error = ic || cg;
+    const validation = () => {
+      return !error
+    }
     const [selectedValue, setSelectedValue] = React.useState('1');
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -263,7 +267,9 @@ function Page(  ) {
               {/* <IconButton  */}
               <Button
                 type= 'submit'
-                color='primary' >
+                color='primary' 
+                disabled={validation()}
+                >
                   {/* {(live)?<PauseCircleFilledIcon/>: */}
                   <PlayCircleFilledIcon/>
                   {/* } */}
