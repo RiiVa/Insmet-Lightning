@@ -137,7 +137,7 @@ function Page(  ) {
       // const testMeteoro = moment('2021-03-19 22:00')
       // const testMeteoroEnd = moment('2021-03-19 22:10')
       console.log(moment().subtract(formLive.timer/1000,'seconds').format('YYYY[-]MM[-]DD[T]HH[:]mm[:]ss'))
-      formdata.append('init', moment().subtract(-1,'minutes').format('YYYY[-]MM[-]DD[T]HH[:]mm') )
+      formdata.append('init', moment().subtract(formLive.timer/1000,'seconds').format('YYYY[-]MM[-]DD[T]HH[:]mm') )
       formdata.append('end', moment().format('YYYY[-]MM[-]DD[T]HH[:]mm') )
     //  formdata.append('init',testMeteoro.format('YYYY[-]MM[-]DD[T]HH[:]mm'))
     //  formdata.append('end',testMeteoroEnd.format('YYYY[-]MM[-]DD[T]HH[:]mm'))
