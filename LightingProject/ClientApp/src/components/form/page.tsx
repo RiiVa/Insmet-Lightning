@@ -57,7 +57,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function Page(  ) {
     const classes = useStyles();
-    
+    const dispatch = useDispatch();
+    const rootDispatcher = new RootDispatcher(dispatch);
+    const {live,formLive} = useSelector<LightningState, StatePropsLive>((state: LightningState) => {
+      return {
+          live : state.live,
+          formLive : state.formLive,
+      }
+  });
     
     
     const [peakInit, setPeakInit] = React.useState('');
@@ -97,22 +104,15 @@ function Page(  ) {
     };
 
     
-    const dispatch = useDispatch();
-    const rootDispatcher = new RootDispatcher(dispatch);
-    const {live,formLive} = useSelector<LightningState, StatePropsLive>((state: LightningState) => {
-      return {
-          live : state.live,
-          formLive : state.formLive,
-      }
-  });
+    
     const interval = formLive.timer
-    const delay = formLive.timer
+    const delay = 100
 
     const formLiveFunction = (e:React.FormEvent) =>{
       e.preventDefault()
       const formLive: FormLive = {
         timer:  parseInt(selectedValue) * 60000,
-        peakCurrent : [parseInt(peakInit),parseInt(peakEnd)],
+        peakCurrent : [peakInit,peakEnd],
         cg: cg,
         ic: ic,
         pulse:true,

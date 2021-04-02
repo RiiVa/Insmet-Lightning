@@ -13,6 +13,10 @@ interface StatePropsLive{
     live : boolean,
     formLive : FormLive,
 }
+interface StatePropsHistory{
+    // live : boolean,
+    formHistory : FormHistory,
+}
 interface LDate{
     id:number
     date1:Date
@@ -43,7 +47,7 @@ interface ILightning{
 interface FormHistory{
     end:string,
     init : string,
-    peakCurrent : number[]
+    peakCurrent : string[]
     cg : boolean,
     ic : boolean,
     pulse : boolean,
@@ -51,7 +55,7 @@ interface FormHistory{
 }
 
 interface FormLive{
-    peakCurrent : number[]
+    peakCurrent : string[]
     timer : number,
     cg : boolean,
     ic : boolean,

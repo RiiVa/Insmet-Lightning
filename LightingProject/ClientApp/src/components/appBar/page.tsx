@@ -34,7 +34,7 @@ import { Checkbox, CssBaseline, FormControlLabel, FormGroup, ListItem, TextField
 import HistoryIcon from '@material-ui/icons/History';
 import moment from 'moment';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootDispatcher } from '../../redux/actions/actionCreators';
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
@@ -149,41 +149,56 @@ const useStyles = makeStyles(theme => ({
   ));
 
 function Page() {
-  const [filter,setFilter] = React.useState<IFilterLightning | {}>()
+  const dispatch = useDispatch();
+  const rootDispatcher = new RootDispatcher(dispatch);
+  const {formHistory} = useSelector<LightningState, StatePropsHistory>((state: LightningState) => {
+    return {
+        formHistory : state.formHistory
+    }
+});
+
+  // const [filter,setFilter] = React.useState<IFilterLightning | {}>()
   const [openDialog, setOpenDialog] = React.useState(false);
-  const [peakInit, setPeakInit] = React.useState('');
-    const [peakEnd, setPeakEnd] = React.useState('');
-    const [state, setState] = React.useState({
-      ic: true,
-      cg: true,
-    });
-    const { ic, cg } = state;
+  // const [peakInit, setPeakInit] = React.useState('');
+  //   const [peakEnd, setPeakEnd] = React.useState('');
+  //   const [state, setState] = React.useState({
+  //     ic: true,
+  //     cg: true,
+  //   });
+    const { ic, cg } = formHistory;
     
     const error = ic || cg;
     const validation = () => {
-      if (filter === undefined) return true;
-      if ( (filter as IFilterLightning).init === undefined || (filter as IFilterLightning).end === undefined) return true;
-      
-      if( Date.parse((filter as IFilterLightning).init)>= Date.parse((filter as IFilterLightning).end) )return true;
+      // if (filter === undefined) return true;
+      if ( formHistory.init === '' || formHistory.end === '') return true;
+      if(Date.parse(formHistory.end) > Date.parse(moment().toString()) ) return true;
+      if( Date.parse(formHistory.init)>= Date.parse(formHistory.end) )return true;
       
       if (!error ) return true; 
       return false;
     }
     const handleFilterData = (e: React.ChangeEvent<HTMLInputElement>)=>{
-      console.log(filter)
-      setFilter({
-        ...filter,[e.currentTarget.id]: e.currentTarget.value,
-      })
+      // console.log(filter)
+      // setFilter({
+      //   ...filter,[e.currentTarget.id]: e.currentTarget.value,
+      // })
+      // console.log(e)
+      rootDispatcher.formHistory({...formHistory,[e.currentTarget.id]:e.currentTarget.value})
+      console.log(formHistory)
     }
     const handleTypeFlash = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      setState({ ...state, [name]: event.target.checked });
+      // setState({ ...state, [name]: event.target.checked });
+      rootDispatcher.formHistory({...formHistory,[name]:event.target.checked})
+      
     };
     
     const handlePeakInit = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setPeakInit(event.target.value);
+      // setPeakInit(event.target.value);
+      rootDispatcher.formHistory({...formHistory,peakCurrent:[event.target.value,formHistory.peakCurrent[1]]})
     };
     const handlePeakEnd = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setPeakEnd(event.target.value);
+      // setPeakEnd(event.target.value);
+      rootDispatcher.formHistory({...formHistory,peakCurrent:[formHistory.peakCurrent[0],event.target.value]})
     };
   const handleClickOpen = () => {
     setOpenDialog(true);
@@ -192,18 +207,17 @@ function Page() {
   const handleClose = () => {
     setOpenDialog(false);
   };
-  const dispatch = useDispatch();
-  const rootDispatcher = new RootDispatcher(dispatch);
+  
 
   const handleHistory = (e:React.FormEvent) => {
     e.preventDefault()
       // console.log(filter)
       const formdata = new FormData()
       
-      console.log(peakInit,"peakInit");
-      console.log(peakEnd,"peakEnd");
-      console.log(cg,"cg");
-      console.log(ic,"ic");
+      // console.log(peakInit,"peakInit");
+      // console.log(peakEnd,"peakEnd");
+      // console.log(cg,"cg");
+      // console.log(ic,"ic");
       // console.log(moment().format())
       // console.log(moment('2021-03-19 22:00').format('YYYY[-]MM[-]DD[T]HH[:]mm'))
       // const testMeteoro = moment('2021-03-19 22:00')
@@ -211,11 +225,16 @@ function Page() {
       // console.log(moment().subtract(formLive.timer/1000,'seconds').format('YYYY[-]MM[-]DD[T]HH[:]mm[:]ss'))
       // formdata.append('init', moment().subtract(-1,'minutes').format('YYYY[-]MM[-]DD[T]HH[:]mm') )
       // formdata.append('end', moment().format('YYYY[-]MM[-]DD[T]HH[:]mm') )
-     formdata.append('init',(filter as IFilterLightning).init)
-     formdata.append('end',(filter as IFilterLightning).end)
-      formdata.append('peak',  (peakInit === '')? '0':peakInit  )
-      formdata.append('peak', (peakEnd === '')?'0':peakEnd );
-      
+
+    //  formdata.append('init',(filter as IFilterLightning).init)
+    //  formdata.append('end',(filter as IFilterLightning).end)
+    //   formdata.append('peak',  (peakInit === '')? '0':peakInit  )
+    //   formdata.append('peak', (peakEnd === '')?'0':peakEnd );
+    console.log()
+    formdata.append('init',formHistory.init)
+     formdata.append('end',formHistory.end)
+      formdata.append('peak',  (formHistory.peakCurrent[0] === '')? '0':formHistory.peakCurrent[0] )
+      formdata.append('peak', (formHistory.peakCurrent[1] === '')? '0':formHistory.peakCurrent[1] );
       if(cg && ic)formdata.append('type', '2'  ) ;
       else{if (cg)formdata.append('type', '0'  ) ;
       if (ic)formdata.append('type', '1'  ) ;}
@@ -288,7 +307,7 @@ function Page() {
             type="datetime-local"
             onChange={handleFilterData}
             className={classes.textField}
-            
+            value={formHistory.init}
             InputLabelProps={{
             shrink: true,
             }}
@@ -303,13 +322,14 @@ function Page() {
                 type="datetime-local"
                 className={classes.textField}
                 onChange={handleFilterData}
+                value={formHistory.end}
                 InputLabelProps={{
                 shrink: true,
                 }}
             />
             <ListItem >
-            <TextField id="peakInit" label="PeakInit" value={peakInit} onChange={handlePeakInit}/>
-            <TextField id="peakEnd" label="PeakEnd" value={peakEnd} onChange={handlePeakEnd}/>
+            <TextField id="peakInit" label="PeakInit" value={formHistory.peakCurrent[0]} onChange={handlePeakInit}/>
+            <TextField id="peakEnd" label="PeakEnd" value={formHistory.peakCurrent[1]} onChange={handlePeakEnd}/>
             </ListItem>
             <ListItem className={classes.just}>
               <FormGroup className={classes.just}>
