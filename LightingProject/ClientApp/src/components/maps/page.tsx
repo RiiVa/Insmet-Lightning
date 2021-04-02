@@ -133,7 +133,7 @@ function Page() {
     
     React.useEffect(() => {
       fetch(
-        "/weatherforecast/DataLayers/subestaciones_220.kml"
+        "weatherforecast/DataLayers/subestaciones_220.kml"
       )
         .then((res) => res.text())
         .then((kmlText) => {
@@ -144,7 +144,7 @@ function Page() {
     }, []);
     React.useEffect(() => {
       fetch(
-        "/weatherforecast/DataLayers/estructuras_220.kml"
+        "weatherforecast/DataLayers/estructuras_220.kml"
       )
         .then((res) => res.text())
         .then((kmlText) => {
@@ -155,7 +155,7 @@ function Page() {
     }, []);
     React.useEffect(() => {
       fetch(
-        "/weatherforecast/DataLayers/lineas_220.kml"
+        "weatherforecast/DataLayers/lineas_220.kml"
       )
         .then(
           (res) => 

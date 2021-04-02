@@ -1,23 +1,36 @@
-// import {LatLngTuple} from 'leaflet';
-// const initLightnings: Array<LatLngTuple> = [[28,43],[29,40]] 
 
-// function reducer(state = initLightnings, {type,payload:data}){
-//     switch(action.type){
-//         default:
-//             return state;
-//     }
-// }
-
-import {FILTER_LIGHTNING} from '../actions/actionTypes';
 import {Reducer,Action} from 'redux'
 
 
 
 export const initialState: LightningState = {
-    lightnings : []
+    lightnings : [],
+    formHistory : {
+        end: '',
+        init:'',
+        cg:true,
+        ic:true,
+        peakCurrent:['',''],
+        pulse:true,
+        flash:true,
+    },
+    formLive : {
+        cg:true,
+        ic:true,
+        peakCurrent:['',''],
+        pulse:true,
+        flash:true,
+        timer: 15000,
+        
+    },
+    live : false
+
 }
 export enum ActionType{
     FilterLight,
+    ChangeFormHistory,
+    ChangeFormLive,
+    ChangeLive,
 }
 
 export interface DispatchAction extends Action<ActionType> {
@@ -30,6 +43,13 @@ export const rootReducer: Reducer<LightningState, DispatchAction> = (state = ini
         switch(action.type) {
             case ActionType.FilterLight:
                 return {...state, lightnings:action.payload.lightnings as ILightning[] ,};
+            case ActionType.ChangeLive:
+                return {...state, live:action.payload.live as boolean,};
+            case ActionType.ChangeFormLive:
+                return {...state,lightnings:[], formLive:action.payload.formLive as FormLive, live: true,};
+            case ActionType.ChangeFormHistory:
+                return {...state,formHistory:action.payload.formHistory as FormHistory, live:false,};
+            
             default:
                 return state;
     };

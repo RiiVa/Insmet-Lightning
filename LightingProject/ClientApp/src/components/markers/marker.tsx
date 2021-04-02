@@ -3,7 +3,7 @@ import {Marker,Popup} from 'react-leaflet'
 
 
 function myMarker ({light}:{light : ILightning}){
-    return <Marker position={[light.latitude,light.longitude]}  >
+    return <Marker position={[light.latitude,light.longitude]} key={light.id} >
     <Popup >
         DateTime: {
           light.idDateNavigation.date1
