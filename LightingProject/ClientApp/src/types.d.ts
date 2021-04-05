@@ -9,13 +9,17 @@ type ClickHandlerParam = React.MouseEvent;
 interface StateProps {
     lightnings : ILightning[]
     }
-interface StatePropsLive{
+interface StatePropsFormLive{
     live : boolean,
     formLive : FormLive,
 }
 interface StatePropsHistory{
     // live : boolean,
     formHistory : FormHistory,
+}
+interface StatePropsLive{
+    // live : boolean,
+    live : boolean,
 }
 interface LDate{
     id:number
