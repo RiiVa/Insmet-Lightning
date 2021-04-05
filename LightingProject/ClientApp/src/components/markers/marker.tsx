@@ -17,7 +17,7 @@ function myMarker ({light}:{light : ILightning}){
         <br /> 
         Peak Current: {
           light.peakcurrent/1000 
-        } ka
+        } kA
         <br /> 
         Sensors: {
           light.sensor
