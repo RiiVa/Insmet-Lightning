@@ -14,8 +14,9 @@ export class RootDispatcher {
       constructor(dispatch: Dispatch<DispatchAction>){
           this.dispatch = dispatch; 
       }
-      filterLight = (lightnings: ILightning[]) => this.dispatch({type: ActionType.FilterLight, payload: {lightnings}});
-      changeLive = (live:boolean) => this.dispatch({type :ActionType.ChangeLive ,  payload:{live}})
+      filterLightHistory = (lightnings: ILightning[]) => this.dispatch({type: ActionType.FilterLightHistory, payload: {lightnings}});
+      filterLightLive = (lightnings: ILightning[]) => this.dispatch({type: ActionType.FilterLightLive, payload: {lightnings}});
+      changeLive = (live:boolean,formLive:FormLive) => this.dispatch({type :ActionType.ChangeLive ,  payload:{live,formLive}})
       formLive = (formLive: FormLive) => this.dispatch({type :ActionType.ChangeFormLive ,  payload:{formLive}})
       formHistory = (formHistory: FormHistory) => this.dispatch({type :ActionType.ChangeFormHistory ,  payload:{formHistory}})
   }

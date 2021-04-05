@@ -172,6 +172,11 @@ function Page() {
       // if (filter === undefined) return true;
       if ( formHistory.init === '' || formHistory.end === '') return true;
       if(Date.parse(formHistory.end) > Date.parse(moment().toString()) ) return true;
+      
+      // console.log(moment(formHistory.init))
+      // console.log(moment(formHistory.end))
+      // console.log(moment(formHistory.end).diff(moment(formHistory.init),'days'))
+      if(moment(formHistory.end).diff(moment(formHistory.init),'days')> 1) return true;
       if( Date.parse(formHistory.init)>= Date.parse(formHistory.end) )return true;
       
       if (!error ) return true; 
@@ -246,9 +251,11 @@ function Page() {
         }
         else{
         console.log(res.data as ILightning[])
-        rootDispatcher.filterLight(res.data as ILightning[])
+        rootDispatcher.filterLightHistory(res.data as ILightning[])
+        // rootDispatcher.changeLive(false)
         }
       })
+      
     rootDispatcher.changeLive(false)
     setOpenDialog(false);
   };
