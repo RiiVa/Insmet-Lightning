@@ -133,8 +133,8 @@ function Page(  ) {
       formdata.append('end', moment().format('YYYY[-]MM[-]DD[T]HH[:]mm') )
     //  formdata.append('init',testMeteoro.format('YYYY[-]MM[-]DD[T]HH[:]mm'))
     //  formdata.append('end',testMeteoroEnd.format('YYYY[-]MM[-]DD[T]HH[:]mm'))
-      formdata.append('peak',  (peakCurrent[0] === '')? '0':peakCurrent[0]  )
-      formdata.append('peak', (peakCurrent[1] === '')?'0':peakCurrent[1] );
+    formdata.append('peak',  (formLive.peakCurrent[0] === '')? '0': (parseInt(formLive.peakCurrent[0])*1000).toString() )
+    formdata.append('peak', (formLive.peakCurrent[1] === '')? '0':(parseInt(formLive.peakCurrent[1])*1000).toString() );
       
       if(cg && ic)formdata.append('type', '2'  ) ;
       else{if (cg)formdata.append('type', '0'  ) ;

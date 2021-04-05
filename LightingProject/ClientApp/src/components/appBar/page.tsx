@@ -238,8 +238,8 @@ function Page() {
     console.log()
     formdata.append('init',formHistory.init)
      formdata.append('end',formHistory.end)
-      formdata.append('peak',  (formHistory.peakCurrent[0] === '')? '0':formHistory.peakCurrent[0] )
-      formdata.append('peak', (formHistory.peakCurrent[1] === '')? '0':formHistory.peakCurrent[1] );
+      formdata.append('peak',  (formHistory.peakCurrent[0] === '')? '0': (parseInt(formHistory.peakCurrent[0])*1000).toString() )
+      formdata.append('peak', (formHistory.peakCurrent[1] === '')? '0':(parseInt(formHistory.peakCurrent[1])*1000).toString() );
       if(cg && ic)formdata.append('type', '2'  ) ;
       else{if (cg)formdata.append('type', '0'  ) ;
       if (ic)formdata.append('type', '1'  ) ;}
@@ -256,7 +256,7 @@ function Page() {
         }
       })
       
-    rootDispatcher.changeLive(false)
+    
     setOpenDialog(false);
   };
 

@@ -49,7 +49,7 @@ export const rootReducer: Reducer<LightningState, DispatchAction> = (state = ini
             case ActionType.ChangeLive:
                 return {...state, live:action.payload.live as boolean,formLive:action.payload.formLive as FormLive,};
             case ActionType.ChangeFormLive:
-                return {...state,lightnings:[], formLive:action.payload.formLive as FormLive, };
+                return {...state, formLive:action.payload.formLive as FormLive, };
             case ActionType.ChangeFormHistory:
                 return {...state,formHistory:action.payload.formHistory as FormHistory,};
             
