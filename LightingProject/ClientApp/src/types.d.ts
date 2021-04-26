@@ -16,6 +16,7 @@ interface StatePropsFormLive{
 interface StatePropsHistory{
     // live : boolean,
     formHistory : FormHistory,
+    user : IUser
 }
 interface StatePropsLive{
     // live : boolean,
@@ -39,13 +40,18 @@ interface ILightning{
     pulses:number[]
 
 }
-
+ interface IUser {
+     username: string,
+     token: string,
+ }
 
  interface LightningState  {
     lightnings : ILightning[],
     formHistory : FormHistory,
     formLive : FormLive,
-    live : boolean
+    live : boolean,
+    loggingIn : boolean,
+    user : IUser,
 
 }
 interface FormHistory{

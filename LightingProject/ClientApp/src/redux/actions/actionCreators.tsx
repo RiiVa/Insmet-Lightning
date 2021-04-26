@@ -19,4 +19,6 @@ export class RootDispatcher {
       changeLive = (live:boolean,formLive:FormLive) => this.dispatch({type :ActionType.ChangeLive ,  payload:{live,formLive}})
       formLive = (formLive: FormLive) => this.dispatch({type :ActionType.ChangeFormLive ,  payload:{formLive}})
       formHistory = (formHistory: FormHistory) => this.dispatch({type :ActionType.ChangeFormHistory ,  payload:{formHistory}})
+      login = (user: IUser) => this.dispatch({type : ActionType.Login, payload:{user}})
+      logout = () => this.dispatch({type: ActionType.Logout, payload:{}})
   }

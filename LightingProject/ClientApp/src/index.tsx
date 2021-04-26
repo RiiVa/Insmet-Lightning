@@ -1,18 +1,26 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import {Router, Route, Switch,Redirect} from 'react-router-dom'
 import Maps from './components/liveMaps'
 import {store} from './redux/store'
+import Login from './components/Login/SignIn'
+import {history} from './_helpers/history';
 
 const Root = (
     <Provider store= {store}>
-    <BrowserRouter>
+    <Router history={history}>
         <Switch>
-            <Route path= "/" component = {Maps} />
+            
+                
+                <Route exact path= "/" render={()=>(localStorage.getItem('user')?<Maps/>:<Redirect to="/login"/>)} />
+                
+                <Route path= "/login" component = {Login} />
+            
+
         </Switch>
-    </BrowserRouter>
+    </Router>
     </Provider>
 );
-
+console.log(localStorage.getItem('user'))
 ReactDOM.render(Root, document.getElementById('root'));

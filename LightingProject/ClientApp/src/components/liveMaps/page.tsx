@@ -10,7 +10,7 @@ import MyMarker from '../markers/markerclusert'
 
 import {useSelector} from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
-import {TileLayer, MapContainer, LayersControl} from 'react-leaflet'
+import {TileLayer, MapContainer, LayersControl, Marker} from 'react-leaflet'
 import {LatLngTuple} from 'leaflet';
 import L from 'leaflet';
 // import MarkerClusterGroup from 'react-leaflet-markercluster';
@@ -19,6 +19,19 @@ import './styles.css'
 // import prueba from ../estructuras_220.json"
 // import axios from 'axios'
 import ReactLeafletKml from "react-leaflet-kml";
+
+// import L from 'leaflet';
+// const IconPerso = L.icon({
+//   iconUrl : require("../marker-icon.png"),
+//   iconRetinaUrl : require("../marker-icon.png"),
+//   // iconAnchor : [12,41],
+//   iconSize : [25,41],
+//   shadowAnchor : undefined,
+//   shadowSize : undefined,
+  
+//   shadowUrl : undefined,
+//   className : "leaflet-marker-icon",
+// })
 
 
 const drawerWidth = 240;
@@ -206,7 +219,7 @@ function Page() {
 
                     />
                 </LayersControl.BaseLayer>
-                <LayersControl.Overlay checked name="Substations">
+                {/* <LayersControl.Overlay checked name="Substations">
                   {kmlsub && <ReactLeafletKml kml={kmlsub} />}
                 </LayersControl.Overlay> 
                 <LayersControl.Overlay checked name="Line">
@@ -214,10 +227,13 @@ function Page() {
                 </LayersControl.Overlay>
                 <LayersControl.Overlay name="Structure">
                   {kmlstruct && <ReactLeafletKml kml={kmlstruct} />}
-                </LayersControl.Overlay>
+                </LayersControl.Overlay> */}
                 
                  
                 {/* <Marker position={defaultLatLng}>
+                
+                </Marker>
+                <Marker position={defaultLatLng} icon={IconPerso}>
                 
                 </Marker> */}
                 {/* <MarkerClusterGroup disableClusteringAtZoom={11} spiderfyOnMaxZoom={false} maxClusterRadius={80}> */}

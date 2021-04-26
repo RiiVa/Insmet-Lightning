@@ -30,12 +30,17 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Menu from '@material-ui/icons/Menu';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import MenuCore from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+
 import { Checkbox, CssBaseline, FormControlLabel, FormGroup, ListItem, TextField } from '@material-ui/core';
 import HistoryIcon from '@material-ui/icons/History';
 import moment from 'moment';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootDispatcher } from '../../redux/actions/actionCreators';
+import {history} from '../../_helpers/history'
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
     root: {
@@ -151,12 +156,14 @@ const useStyles = makeStyles(theme => ({
 function Page() {
   const dispatch = useDispatch();
   const rootDispatcher = new RootDispatcher(dispatch);
-  const {formHistory} = useSelector<LightningState, StatePropsHistory>((state: LightningState) => {
+  const {formHistory,user} = useSelector<LightningState, StatePropsHistory>((state: LightningState) => {
     return {
-        formHistory : state.formHistory
+        formHistory : state.formHistory,
+        user : state.user
     }
 });
-
+  console.log(user.username)
+  console.log(localStorage.getItem('user'))
   // const [filter,setFilter] = React.useState<IFilterLightning | {}>()
   const [openDialog, setOpenDialog] = React.useState(false);
   // const [peakInit, setPeakInit] = React.useState('');
@@ -270,7 +277,21 @@ function Page() {
         setOpen(false);
     };
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      setAnchorEl(event.currentTarget);
+    };
+
+    const handleCloseAnchor = () => {
+      setAnchorEl(null);
+    };
+    const handleCloseAnchor2 = () => {
+      rootDispatcher.logout();
+      localStorage.removeItem('user');
+      history.push('/login');
+      setAnchorEl(null);
+    };
 
     return (
         <React.Fragment>
@@ -362,6 +383,26 @@ function Page() {
         </DialogActions>
       </Dialog>
           
+        </div>
+        <div>
+          <IconButton 
+            color="inherit"
+              onClick={handleClick}
+            >
+            
+              <AccountCircleIcon />
+          </IconButton>
+          <MenuCore
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleCloseAnchor}>Profile</MenuItem>
+            <MenuItem onClick={handleCloseAnchor}>My account</MenuItem>
+            <MenuItem onClick={handleCloseAnchor2}>Logout</MenuItem>
+          </MenuCore>
         </div>
             </Toolbar>
 

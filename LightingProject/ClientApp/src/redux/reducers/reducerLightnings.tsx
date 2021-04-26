@@ -23,7 +23,11 @@ export const initialState: LightningState = {
         timer: 1,
         
     },
-    live : false
+    live : false,
+    loggingIn : false,
+    user : {
+        username:'',
+        token:''}
 
 }
 export enum ActionType{
@@ -32,6 +36,9 @@ export enum ActionType{
     ChangeFormHistory,
     ChangeFormLive,
     ChangeLive,
+    Login,
+    Logout
+
 }
 
 export interface DispatchAction extends Action<ActionType> {
@@ -52,7 +59,10 @@ export const rootReducer: Reducer<LightningState, DispatchAction> = (state = ini
                 return {...state, formLive:action.payload.formLive as FormLive, };
             case ActionType.ChangeFormHistory:
                 return {...state,formHistory:action.payload.formHistory as FormHistory,};
-            
+            case ActionType.Login:
+                return {...state,loggingIn:true,user : action.payload.user as IUser};
+            case ActionType.Logout:
+                return {...state,loggingIn:false};
             default:
                 return state;
     };
