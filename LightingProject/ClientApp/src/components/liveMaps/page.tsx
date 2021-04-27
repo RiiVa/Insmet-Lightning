@@ -4,7 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 
 import AppBar from '../appBar/index';
 // import Dashboard from '../Dashboard/Dashboard';
-import MyMarker from '../markers/markerclusert'
+import MyMarker from '../markers/markerclusert.jsx'
 
 // import clsx from 'clsx';
 
