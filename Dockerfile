@@ -5,6 +5,12 @@ WORKDIR /app
 
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
+
+RUN apt-get update -yq \
+    && apt-get install curl gnupg -yq \
+    && curl -sL https://deb.nodesource.com/setup_16.x | bash \
+    && apt-get install nodejs -yq
+
 WORKDIR /src
 RUN git clone https://RiiVa:RiiVaDota39@github.com/RiiVa/Insmet-Lightning.git
 COPY ["LightingProject/LightingProject.csproj", "LightingProject/"]
