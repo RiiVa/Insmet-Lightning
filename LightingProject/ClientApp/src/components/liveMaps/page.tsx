@@ -237,11 +237,11 @@ function Page() {
                 
                 </Marker> */}
                 {/* <MarkerClusterGroup disableClusteringAtZoom={11} spiderfyOnMaxZoom={false} maxClusterRadius={80}> */}
-                 <LayersControl.Overlay checked name="Lightnings Data">
+                 {/* <LayersControl.Overlay  name="Lightnings Data"> */}
                 
                  <MyMarker/>
 
-                </LayersControl.Overlay> 
+                {/* </LayersControl.Overlay>  */}
                 {/* <LayersControl.Overlay name="Lightnings Data ">
                 
                 <MyMarker/>

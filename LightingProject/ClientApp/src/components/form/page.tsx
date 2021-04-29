@@ -156,8 +156,8 @@ function Page(  ) {
   }
     useEffect(() => {
       
-      console.log(live)
-      console.log(temp)
+      // console.log(live)
+      // console.log(temp)
       if(live){
       let intervalId:NodeJS.Timeout;
       console.log("useEffect trigger", delay, interval);

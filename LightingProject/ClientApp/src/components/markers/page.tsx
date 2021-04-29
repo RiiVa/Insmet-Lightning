@@ -91,10 +91,11 @@ function Page() {
           //     clearTimeout(timerId);
           //   };
           // }, [delay, interval]);
-      
+          console.log(lightnings)
     return (
       <div>
       {
+        
         lightnings.map((light: ILightning) => {
         // console.log(light)
         return <MyMarker light = {light as ILightning} />
