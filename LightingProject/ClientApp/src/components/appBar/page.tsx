@@ -162,8 +162,8 @@ function Page() {
         user : state.user
     }
 });
-  console.log(user.username)
-  console.log(localStorage.getItem('user'))
+  // console.log(user.username)
+  // console.log(localStorage.getItem('user'))
   // const [filter,setFilter] = React.useState<IFilterLightning | {}>()
   const [openDialog, setOpenDialog] = React.useState(false);
   // const [peakInit, setPeakInit] = React.useState('');
@@ -196,7 +196,7 @@ function Page() {
       // })
       // console.log(e)
       rootDispatcher.formHistory({...formHistory,[e.currentTarget.id]:e.currentTarget.value})
-      console.log(formHistory)
+      // console.log(formHistory)
     }
     const handleTypeFlash = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
       // setState({ ...state, [name]: event.target.checked });
@@ -242,7 +242,7 @@ function Page() {
     //  formdata.append('end',(filter as IFilterLightning).end)
     //   formdata.append('peak',  (peakInit === '')? '0':peakInit  )
     //   formdata.append('peak', (peakEnd === '')?'0':peakEnd );
-    console.log()
+    // console.log()
     formdata.append('init',formHistory.init)
      formdata.append('end',formHistory.end)
       formdata.append('peak',  (formHistory.peakCurrent[0] === '')? '0': (parseInt(formHistory.peakCurrent[0])*1000).toString() )

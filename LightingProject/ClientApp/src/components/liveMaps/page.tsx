@@ -4,7 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 
 import AppBar from '../appBar/index';
 // import Dashboard from '../Dashboard/Dashboard';
-import MyMarker from '../markers/markerclusert'
+import MyMarker from '../markers/markerclusert.jsx'
 
 // import clsx from 'clsx';
 
@@ -237,11 +237,11 @@ function Page() {
                 
                 </Marker> */}
                 {/* <MarkerClusterGroup disableClusteringAtZoom={11} spiderfyOnMaxZoom={false} maxClusterRadius={80}> */}
-                 <LayersControl.Overlay checked name="Lightnings Data">
+                 {/* <LayersControl.Overlay  name="Lightnings Data"> */}
                 
                  <MyMarker/>
 
-                </LayersControl.Overlay> 
+                {/* </LayersControl.Overlay>  */}
                 {/* <LayersControl.Overlay name="Lightnings Data ">
                 
                 <MyMarker/>
